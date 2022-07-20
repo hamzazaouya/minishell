@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    char str[] = " / || wc -l";
+    char str[] = " ls -la | wc -l || (cat -e | df || ef && (rrt || rtg)) &&lf";
     char **prior = parce_by_prior(str);
     int i = 0;
     while(prior[i])
@@ -10,5 +10,4 @@ int main(void)
         printf("%s\n", prior[i]);
         i++;
     }
-    while(1);
 }

@@ -1,6 +1,6 @@
 NAME = minishell
 HEADER = minishell.h
-SOURCES = main.c parsing_by_prior.c
+SOURCES = main.c  lists/lst_new.c parsing/pars_str.c parsing/creat_cmds.c
 SRC_PATH = src
 OBJ_PATH  = objs
 OBJ_PATH_B = objs_b
@@ -34,6 +34,8 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c includes/$(HEADER)
 
 $(OBJ_PATH):
 	@mkdir objs
+	@mkdir objs/lists
+	@mkdir objs/parsing
 
 clean:
 	rm -fr $(OBJS)

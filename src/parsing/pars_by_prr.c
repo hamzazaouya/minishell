@@ -1,5 +1,4 @@
-#include "../includes/minishell.h"
-#include <string.h>
+#include "../../includes/minishell.h"
 
 int is_prior(char *str)
 {

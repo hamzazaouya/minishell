@@ -1,6 +1,6 @@
 NAME = minishell
 HEADER = minishell.h
-SOURCES = main.c  lists/lst_new.c parsing/pars_str.c parsing/creat_cmds.c parsing/function1.c
+SOURCES = main.c  lists/lst_new.c parsing/pars_str.c parsing/creat_cmds.c
 SRC_PATH = src
 OBJ_PATH  = objs
 OBJ_PATH_B = objs_b

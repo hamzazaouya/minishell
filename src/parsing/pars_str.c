@@ -17,7 +17,9 @@ int get_cmd_len(char *str)
     int i;
 
     i = 0;
-    while(str[i] && str[i] != ' ')
+	if(str[i] == '|')
+		return (1);
+    while(str[i] && str[i] != ' ' && str[i] != '|')
         i++;
     return (i);
 }
@@ -40,12 +42,17 @@ int	count_cmd(char *str)
 	ctr = 0;
 	while(str[i])
 	{
-		if(str[i] != ' ' && str[i])
+		if(str[i] != ' ' && str[i] != '|')
 		{
 			if(str[i] == '\"' || str[i] == '\'')
 				i += get_str_len(str + i);
 			else
 				i += get_cmd_len(str + i);
+			ctr++;
+		}
+		else if(str[i] == '|')
+		{
+			i++;
 			ctr++;
 		}
 		else
@@ -84,10 +91,8 @@ char **separation(char *str)
 	cmd_sep = (char **) malloc(sizeof(char *) * (count_cmd(str) + 1));
 	while(str[i])
 	{
-		if(str[i] && str[i] != ' ')
-		{
+		if(str[i] != ' ')
 			cmd_sep[j++] = get_arg(str + i, &i);
-		}
 		else
 			i++;
 	}

@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    parsing("cat -e  outfile |sssssswc -l (cat -e | df || ef && (rrt || rtg)) && lf && (a && ( a1 || (a2 && b)))");
+    parsing("ls|wc -l | cat -e | grep \"hello\"| tr -d 'memo' | ls -la ");
 }
 
 // int sum(int a, int b)

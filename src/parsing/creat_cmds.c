@@ -53,14 +53,22 @@ int cmd_type(char **cmd)
 
 int	next_cmd(char **cmd_sep, int i)
 {
-	while(cmd_sep[i] && !ft_strncmp(cmd[i], "|", ft_strlen(cmd[i])))
+	while(cmd_sep[i] && !ft_strncmp(cmd_sep[i], "|", ft_strlen(cmd_sep[i])))
 		i++;
 	if(cmd_sep[i])
 		i++;
 	return (i);
 }
 
-void	creat_cmd_list()
+void	creat_cmd_list(t_cmds **cmd_list, char **cmd)
+{
+	// t_cmds	*node;
+	// int		type;
+	// t_cmds	*(*f[5])(char **cmd);
+
+	// type = cmd_type(cmd);
+	herdoc(cmd);
+}
 
 void    parsing(char *str)
 {
@@ -71,12 +79,17 @@ void    parsing(char *str)
 
 	i = 0;
 	cmd_sep = separation(str);
-	while(cmd_sep[i])
-	{
-		cmd = ft_get_cmd(cmd_sep, i);
-		creat_cmd_list(cmd, &cmd_list);
-		i = next_cmd(cmd_sep, i);
-	}
-    // cmd_list = creat_cmd_list(cmd_sep);
-    // return (cmd_list);
+    while(cmd_sep[i])
+    {
+        printf("%s\n", cmd_sep[i]);
+        i++;
+    }
+	// while(cmd_sep[i])
+	// {
+	// 	cmd = ft_get_cmd(cmd_sep, i);
+	// 	creat_cmd_list(&cmd_list, cmd);
+	// 	i = next_cmd(cmd_sep, i);
+	// }
+    // cmd = ft_get_cmd(cmd_sep, i);
+    // creat_cmd_list(&cmd_list, cmd);
 }

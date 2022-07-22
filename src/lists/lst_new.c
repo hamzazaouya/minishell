@@ -3,9 +3,9 @@
 void	init_list(t_cmds *lst)
 {
 	lst->command = NULL;
+	lst->delimtr = NULL;
 	lst->in_f = 0;
 	lst->out_f = 1;
-	lst->is_herdog = 0;
 	lst->next = NULL;
 }
 

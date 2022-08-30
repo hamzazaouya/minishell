@@ -10,7 +10,11 @@ int main(int argc, char ** argv, char **env)
     char *line;
     int i;
     exit_code = 0;
+    t_env *list_env;
 
+    init_env(&list_env, env);
+    //pritnt env
+    my_env(&list_env);
     while(1)
     {
         line = readline(GRN "Minishell $: " RESET);
@@ -45,6 +49,7 @@ int main(int argc, char ** argv, char **env)
         }
         free(line);
         parce_free_cmd_shell(cmd_list);
+        free(&list_env);
         exit_code = 0;
     }
 }

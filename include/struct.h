@@ -54,4 +54,10 @@ typedef struct s_cmd_shell
     struct  s_cmd_shell *next;
 }   t_cmd_shell;
 
+typedef struct s_data
+{
+    int     exit_code;
+    t_env	*list_env;
+}   t_data;
+
 #endif

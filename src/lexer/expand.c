@@ -52,8 +52,9 @@ char*	lexer_collect_expand(t_lexer *lexer)
     if (lexer->c == '?')
 	{
 		lexer_advance(lexer);
-		return (ft_itoa(exit_code));
+		return (ft_itoa(data->exit_code));
 	}
     var_name = lexer_get_var_name(lexer);
-	return (get_var_from_env(lexer, var_name));
+    
+	return (get_content_from_env(data->list_env, var_name));
 }

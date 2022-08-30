@@ -2,11 +2,10 @@
 
 char *get_content_from_env(t_env *list_env, char *type)
 {
+    if(!type)
+        return (NULL);
     while(list_env)
     {
-        //printf("%s\n",list_env->type);
-        //printf("%d\n",ft_strcmp(list_env->type, type));
-        //printf("%s\n", type);
         if (!ft_strcmp(list_env->type, type))
             return (list_env->content);
         list_env = list_env->next;

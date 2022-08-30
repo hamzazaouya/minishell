@@ -6,8 +6,6 @@
 #include "builtins.h"
 #include "aid_funcs.h"
 # include <term.h>
-
-
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -27,12 +25,10 @@
 #define GRN   "\x1B[32m"
 #define RESET "\x1B[0m"
 
-int exit_code;
 
-typedef struct s_general {
-    int exit_code;
-    int cmd_err;
-} t_general;
+
+
+t_data      *data;
 
 char	*ft_collect(char *s1, char *s2);
 #endif

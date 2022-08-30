@@ -127,7 +127,7 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, t_token *token, char *cmd_val
 		if (token->type == TOKEN_WORD)
 		{
 			cmd_value = parce_word(token, cmd_value);
-			if(exit_code == 256)
+			if(data->exit_code == 256)
 				return (parce_free_cmd(cmd, token, cmd_value));
 		}
 		else

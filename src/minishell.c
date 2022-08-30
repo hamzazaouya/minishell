@@ -4,17 +4,18 @@
 
 int main(int argc, char ** argv, char **env)
 {
-    t_lexer* lexer;
-    t_cmd   *cmd_list;
-    t_token *token;
-    char *line;
-    int i;
-    exit_code = 0;
-    t_env *list_env;
+    t_lexer*	lexer;
+    t_cmd		*cmd_list;
+    t_token		*token;
+    char		*line;
+    int			i;
 
-    init_env(&list_env, env);
+
+	data = (t_data *) malloc(sizeof(t_data));
+	data->exit_code = 0;
+    init_env(&(data->list_env), env);
     //pritnt env
-    my_env(&list_env);
+    //my_env(&list_env);
     while(1)
     {
         line = readline(GRN "Minishell $: " RESET);
@@ -47,9 +48,9 @@ int main(int argc, char ** argv, char **env)
         //     free(token->value);
         //     free(token);
         }
-        free(line);
+free(line);
         parce_free_cmd_shell(cmd_list);
-        free(&list_env);
-        exit_code = 0;
+        data->exit_code = 0;
     }
+    free(data->list_env);
 }

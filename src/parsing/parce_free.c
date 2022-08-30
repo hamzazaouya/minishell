@@ -71,7 +71,7 @@ t_cmd	*parce_token_pipe_error(t_cmd *cmd, t_token *token,int sign)
 		len = ft_strlen("syntax error near unexpected token 'newline'\n");
 		write(2, "syntax error near unexpected token 'newline'\n", len);
 	}
-	exit_code = 258;
+	data->exit_code = 258;
 	return (parce_free_cmd(cmd, token, NULL));
 }
 
@@ -84,5 +84,5 @@ void    parce_token_error(t_cmd *cmd , t_token *token)
 	else
 		write(2, token->value, ft_strlen(token->value));
 	write(2, "'\n", 2);
-	exit_code = 258;
+	data->exit_code = 258;
 }

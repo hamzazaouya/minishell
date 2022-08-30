@@ -1,0 +1,38 @@
+\t                  ->token
+                     -> nothing
+|                    -> syntax error near unexpected token '|'
+dfasdfsdf |         -> syntax error near unexpected token 'newline'
+> |                 -> syntax error near unexpected token '|'
+>>                   -> syntax error near unexpected token 'newline'                       
+<<                     ->syntax error near unexpected token 'newline'
+>                       -> syntax error near unexpected token 'newline'
+<                       -> syntax error near unexpected token 'newline'
+>>>                     -> syntax error near unexpected token '>'
+<<<                     -> syntax error near unexpected token '<'
+>>>>>>>>>>>>>>>>>>>     -> syntax error near unexpected token '>'
+<<<<<<<<<<<<<<<<<<       -> syntax error near unexpected token '<'
+echo $USER              ->  "echo", "hazaouya",
+$USER                   -> "hazaouya",
+echo $dfsdfsdfsdf -> "echo",
+>> $USER            -> type = 3, value = hazaouya
+<< $USER            -> type = 1, value = hazaouya
+> $USER             -> type = 2, value = hazaouya
+< $USER             -> type = 0, value = hazaouya
+hello               -> "hello",
+ls "                -> Error: No Closing qoute
+"        hello  $USER hello$USER hello$usre     " -> "        hello  hazaouya hellohazaouya hello     ",
+ls -la | wc -l | echo " -> Error: No Closing qoute
+$                   -> nothing
+$sdfsdfsdf          -> nothing
+$USER               -> hazaouya
+hello$USER          -> hellohazaouya
+hello$sdfsdfsdf     -> hello;
+hello$USER+andme    -> hellohazaouya+andme
+hello$sdfsdf+andme  -> hello+andme
+hello$$$$$$$$$$$$USER+andme -> hellohazaouya+andme 
+$sdfsdfsdf        -> nothing
+cat |  << lim
+cat | <<            -> syntax error near unexpected token 'newline'
+cat -e ""           -> "cat",  "-e",
+""""''''""""'''' echo''''''''"""""""" """"''''""""'''' echo ''''''''""""""""
+sdjfosjdfo sf| sjdof jf| sdjf | $sodjfosdjfsf

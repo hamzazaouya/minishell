@@ -14,6 +14,7 @@ int main(int argc, char ** argv, char **env)
 	data = (t_data *) malloc(sizeof(t_data));
 	data->exit_code = 0;
     init_env(&(data->list_env), env);
+    signal(SIGINT, signal_handler);
     //pritnt env
     //my_env(&list_env);
     while(1)

@@ -51,7 +51,8 @@ t_redire	*parce_init_redire(int type, char *value)
 	redire = (t_redire *) malloc(sizeof(t_redire));
 	redire->type = type;
 	redire->next = NULL;
-	redire->fd = -1;
+	redire->fd[0] = -1;
+	redire->fd[1] = -1;
 	if(value)
 	{
 		len = ft_strlen(value);
@@ -135,7 +136,6 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, t_token *token, char *cmd_val
 				return (NULL);
 		free_token(&token);
 		token = lexer_get_next_token(lexer);
-		//system("leaks minishell");
 	}
 	if(!lexer->c && token->type == TOKEN_PIPE)
 		return (parce_token_pipe_error(cmd, token, 0));
@@ -148,10 +148,11 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, t_token *token, char *cmd_val
 	return (cmd);
 }
 
-t_cmd	*parce_list_shell(t_lexer *lexer)
+t_cmds	*parce_list_shell(t_lexer *lexer)
 {
 	t_cmd   *cmd_list;
     t_cmd	*cmd_shell;
+	t_cmds	*cmds_list;
 	char	*value;
 
 	cmd_list = NULL;
@@ -160,9 +161,12 @@ t_cmd	*parce_list_shell(t_lexer *lexer)
 		value = NULL;
         cmd_shell = parce_cmd_shell(ft_init_cmd() ,lexer, lexer_get_next_token(lexer), value);
 		if(!cmd_shell)
-			return (parce_free_cmd_shell(cmd_list));
+			return ((t_cmds *) parce_free_cmd_shell(cmd_list));
 		else
 			parce_cmd_add_back(&cmd_list, cmd_shell);
     }
-	return (cmd_list);
+	parce_open_redire(cmd_list);
+	cmds_list = parce_get_cmds(cmd_list);
+	parce_free_cmd_shell(cmd_list);
+	return (cmds_list);
 }

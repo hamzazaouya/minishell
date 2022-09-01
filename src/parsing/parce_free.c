@@ -42,7 +42,7 @@ t_cmd  *parce_free_cmd(t_cmd *cmd, t_token *token, char *value)
     return (NULL);
 }
 
-t_cmd *parce_free_cmd_shell(t_cmd *cmd)
+void *parce_free_cmd_shell(t_cmd *cmd)
 {
 	t_cmd *temp1;
 	t_cmd *temp2;

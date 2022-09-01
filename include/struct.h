@@ -25,7 +25,7 @@ typedef struct token_struct
 
 typedef struct s_redire
 {
-    int     fd;
+    int     fd[2];
     int     type;
     char    *value;
     struct s_redire *next;
@@ -45,17 +45,18 @@ typedef struct s_exec_cmd
     char    *path;
 } t_exec_cmd;
 
-typedef struct s_cmd_shell
+typedef struct s_cmds
 {
     int         type;
     int         in_redire;
     int         out_redire;
     t_exec_cmd *exec_cmd;
-    struct  s_cmd_shell *next;
-}   t_cmd_shell;
+    struct  s_cmds *next;
+}   t_cmds;
 
 typedef struct s_data
 {
+    int     signal;
     int     exit_code;
     t_env	*list_env;
 }   t_data;

@@ -21,6 +21,8 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <curses.h>
+# include <errno.h>
+# include <string.h>
 #include "libft.h"
 #define GRN   "\x1B[32m"
 #define RESET "\x1B[0m"

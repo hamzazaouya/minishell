@@ -91,6 +91,7 @@ t_cmds  *parce_get_cmds(t_cmd *cmd_list)
     t_cmds  *cmds_list;
     t_cmds  *cmds;
 
+    cmds_list = NULL;
     while(cmd_list)
     {
         cmds = parce_copy_cmds(cmd_list);

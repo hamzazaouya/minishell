@@ -34,4 +34,6 @@
 t_data      *data;
 
 char	*ft_collect(char *s1, char *s2);
+void    preter_first_list(t_cmd *cmd_list);
+void    preter_final_list(t_cmds *cmds_list);
 #endif

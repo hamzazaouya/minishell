@@ -4,6 +4,7 @@ int	parce_open_files(t_redire *redire)
 {
 	while(redire)
 	{
+		printf("%s\n", redire->value);
 		if(!redire->value)
 		{
 			write(2, "ambiguous redirect\n", ft_strlen("ambiguous redirect\n"));
@@ -12,7 +13,9 @@ int	parce_open_files(t_redire *redire)
 		if(redire->type == TOKEN_INF)
 			redire->fd[0] = open(redire->value, O_RDONLY, 0644);
 		else if(redire->type == TOKEN_OUTF)
+		{
 			redire->fd[0] = open(redire->value,  O_RDWR | O_CREAT | O_TRUNC, 0644);
+		}
 		else if(redire->type == TOKEN_APPEND)
 			redire->fd[0] = open(redire->value, O_RDWR | O_CREAT| O_APPEND, 0644);
 		if(redire->fd[0] == -1)

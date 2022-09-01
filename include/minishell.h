@@ -5,6 +5,7 @@
 #include "env.h"
 #include "builtins.h"
 #include "aid_funcs.h"
+#include "signal.h"
 # include <term.h>
 # include <unistd.h>
 # include <stdio.h>

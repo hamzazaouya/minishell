@@ -6,7 +6,7 @@ SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c 
 			parsing/parce.c parsing/parce_free.c parsing/herdoc.c parsing/open_redire.c parsing/cmds.c \
 			builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \
 			builtins/pwd.c builtins/unset.c builtins/export.c \
-			env/initial_env.c 
+			env/initial_env.c signal/signal.c
 SRC_PATH = src
 OBJ_PATH  = obj
 LIB = include/libft.a
@@ -34,6 +34,7 @@ $(OBJ_PATH):
 	@mkdir obj/aid_funcs
 	@mkdir obj/builtins
 	@mkdir obj/env
+	@mkdir obj/signal
 
 clean:
 	rm -fr $(OBJS)

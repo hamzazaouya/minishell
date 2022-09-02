@@ -55,6 +55,5 @@ char*	lexer_collect_expand(t_lexer *lexer)
 		return (ft_itoa(data->exit_code));
 	}
     var_name = lexer_get_var_name(lexer);
-    
 	return (get_content_from_env(data->list_env, var_name));
 }

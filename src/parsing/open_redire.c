@@ -4,7 +4,6 @@ int	parce_open_files(t_redire *redire)
 {
 	while(redire)
 	{
-		printf("%s\n", redire->value);
 		if(!redire->value)
 		{
 			write(2, "ambiguous redirect\n", ft_strlen("ambiguous redirect\n"));

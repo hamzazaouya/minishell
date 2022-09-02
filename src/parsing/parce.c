@@ -167,7 +167,5 @@ t_cmds	*parce_list_shell(t_lexer *lexer)
     }
 	parce_open_redire(cmd_list);
 	cmds_list = parce_get_cmds(cmd_list);
-	preter_final_list(cmds_list);
-	//parce_free_cmd_shell(cmd_list);
 	return (cmds_list);
 }

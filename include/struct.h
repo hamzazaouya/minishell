@@ -41,6 +41,7 @@ typedef struct s_cmd
 
 typedef struct s_exec_cmd
 {
+    int     type;
     char    **cmd;
     char    *path;
 } t_exec_cmd;

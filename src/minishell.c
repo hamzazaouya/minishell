@@ -31,6 +31,7 @@ void preter_final_list(t_cmds *cmds_list)
         printf("type = %d\n", cmds_list->type);
         printf("input = %d\n", cmds_list->in_redire);
         printf("output = %d\n", cmds_list->out_redire);
+        printf("Cmd Type = %d\n", cmds_list->exec_cmd->type);
         printf("CmdPath = %s\n", cmds_list->exec_cmd->path);
         while(cmds_list->exec_cmd->cmd && cmds_list->exec_cmd->cmd[i])
             printf("\'%s\' ", cmds_list->exec_cmd->cmd[i++]);
@@ -49,6 +50,7 @@ int main(int argc, char ** argv, char **env)
 
 	data = (t_data *) malloc(sizeof(t_data));
 	data->exit_code = 0;
+    init_env(&data->list_env, env);
     signal(SIGINT, signal_handler);
     while(1)
     {

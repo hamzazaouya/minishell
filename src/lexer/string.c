@@ -88,6 +88,7 @@ t_token*	lexer_collect_string(t_lexer* lexer)
 		else
 			s = lexer_collect_word(lexer);
 		value = ft_collect(value, s);
+		printf("-------------------------------->>>>>>>>>>>>>>>>>>>>>\n");
 	}
 	return (init_token(TOKEN_WORD, value));
 }

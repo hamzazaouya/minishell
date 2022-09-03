@@ -7,7 +7,9 @@ char *get_content_from_env(t_env *list_env, char *type)
     while(list_env)
     {
         if (!ft_strcmp(list_env->type, type))
-            return (list_env->content);
+        {
+            return (ft_strdup(list_env->content));
+        }
         list_env = list_env->next;
     }
     return (NULL);

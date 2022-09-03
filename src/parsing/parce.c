@@ -122,7 +122,7 @@ char *parce_word(t_token *token, char *cmd_value)
 t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, t_token *token, char *cmd_value)
 {
 	if(token->type == TOKEN_PIPE)
-		return(parce_token_pipe_error(cmd, token, 1));;
+		return(parce_token_pipe_error(cmd, token, 1));
 	while(token->type != TOKEN_END && token->type != TOKEN_PIPE)
 	{
 		if (token->type == TOKEN_WORD)

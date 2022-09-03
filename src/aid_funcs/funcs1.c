@@ -13,3 +13,13 @@ char	*ft_collect(char *s1, char *s2)
 	free(s2);
 	return (value);
 }
+
+char	*char_as_string(char c)
+{
+	char *str;
+
+	str = (char *) malloc(sizeof(char) * 1);
+	str[0] = c;
+	str[1] = 0;
+	return (str);
+}

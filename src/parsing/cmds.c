@@ -20,11 +20,13 @@ char*	parce_cmd_without_path(char *cmd)
 	char	*path;
 
 	i = 0;
-    paths = ft_split(get_content_from_env(data->list_env, "PATH"), ':');
+    path = get_content_from_env(data->list_env, "PATH");
+    paths = ft_split(path, ':');
+    free(path);
 	while (paths[i])
 	{
-        path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(path, cmd);
+        path = ft_collect(ft_strdup(paths[i]), ft_strdup("/"));
+		path = ft_collect(path, ft_strdup(cmd));
 		checker = access(path, X_OK);
 		if (!checker)
 			break ;
@@ -37,7 +39,7 @@ char*	parce_cmd_without_path(char *cmd)
         write(2, "command not found\n", ft_strlen("command not found\n"));
 		data->exit_code = 127;
     }
-    free(paths);
+    free_arry_of_chars(paths);
 	return (path);
 }
 

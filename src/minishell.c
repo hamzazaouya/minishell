@@ -49,6 +49,7 @@ int main(int argc, char ** argv, char **env)
     int			i;
 
 	data = (t_data *) malloc(sizeof(t_data));
+    data->env = env;
 	data->exit_code = 0;
     init_env(&data->list_env, env);
     signal(SIGINT, signal_handler);
@@ -66,6 +67,7 @@ int main(int argc, char ** argv, char **env)
         lexer = init_lexer(env, line);
         cmds_list = parce_list_shell(lexer);
         preter_final_list(cmds_list);
+        //execute(cmds_list);
         //preter(cmds_list);
         // while(token_list)
         // {

@@ -59,6 +59,7 @@ typedef struct s_data
 {
     int     signal;
     int     exit_code;
+    char    **env;
     t_env	*list_env;
 }   t_data;
 

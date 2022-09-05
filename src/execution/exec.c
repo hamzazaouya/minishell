@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	exec_builtins(t_cmds *cmds)
+void	exec_builtins(t_cmds *cmds, int k)
 {
 	if(cmds->exec_cmd->type == 0)
 		my_cd(cmds->exec_cmd->cmd, &data->list_env);
@@ -9,7 +9,7 @@ void	exec_builtins(t_cmds *cmds)
 	else if(cmds->exec_cmd->type == 2)
 		my_env(&data->list_env);
 	else if(cmds->exec_cmd->type == 3)
-		my_exit(&data->list_env);
+		my_exit(cmds->exec_cmd->cmd, &data->list_env, k);
 	else if(cmds->exec_cmd->type == 4)
 		my_export(cmds->exec_cmd->cmd, &data->list_env);
 	else if(cmds->exec_cmd->type == 5)
@@ -56,11 +56,21 @@ void	execute(t_cmds *cmds)
 	{
 		if(cmds->next)
 			pipe(p);
+		
+		if (len == 1 && cmds->exec_cmd->type != -1)
+		{
+			exec_builtins(cmds, 0);
+			//exit(0);
+			//my_exit(cmds->exec_cmd->cmd, &data->list_env);;
+		}
+		else
+		{
 		id = fork();
 		if(id == 0)
 		{
+			
 			if(cmds->in_redire > 2)
-				dup2(cmds->in_redire, 0);
+				dup2(cmds->in_redire, 1);
 			if(end_p != -1)
 			{
 				dup2(end_p, 0);
@@ -76,7 +86,10 @@ void	execute(t_cmds *cmds)
 			}
 			close(p[0]);
 			if(cmds->exec_cmd->type != -1)
-				exec_builtins(cmds);
+			{
+				exec_builtins(cmds, 0);
+				exit(0);
+			}
 			else
 				execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
 		}
@@ -86,6 +99,7 @@ void	execute(t_cmds *cmds)
 				close(end_p);
 			end_p = p[0];
 			close(p[1]);
+		}
 		}
 		cmds = cmds->next;
 	}

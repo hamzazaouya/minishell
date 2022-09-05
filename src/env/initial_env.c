@@ -22,8 +22,15 @@ char *get_type(char *type)
     size_t  i;
 
     i = 0;
-    while (type[i] != '=')
+    while (type[i] != '=' && type[i] != '+')
         i++;
+    /*if (type[i] == '+' && type[i + 1] != '=')
+    {
+        printf("export: `mmmm+lll': not a valid identifier\n");
+        return (NULL);
+    }
+    else
+        i++;*/
     r = ft_str(type, i);
     return (r);
 }
@@ -58,12 +65,12 @@ void init_env(t_env **list_env,char **env)
         new = NULL;
         type = NULL;
         type = get_type(env[i]);
-        //printf("%s\n",type);
+        //printf("type:%s\n",type);
         //printf("ty:%s\n",type);
         content = NULL;
         //printf("get_content:\n");
         content = get_content(env[i]);
-        //printf("%s\n",content);
+        //printf("content:%s\n",content);
         new = ft_listnew_env(type, content);
         ft_listadd_back_env(list_env, new);
         i++;

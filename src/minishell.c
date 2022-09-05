@@ -59,15 +59,20 @@ int main(int argc, char ** argv, char **env)
         line = readline(GRN "Minishell $: " RESET);
         if(!line)
         {
-            printf(GRN "\nMinishell $: " RESET);
-            printf("exit\n");
+            //printf(GRN "\nMinishell $: " RESET);
+            //printf("exit\n");
             exit(0);
         }
-        add_history(line);
-        lexer = init_lexer(env, line);
-        cmds_list = parce_list_shell(lexer);
-        preter_final_list(cmds_list);
-        //execute(cmds_list);
+        //printf("--->%s:\n",line);
+        //if (line)
+        //{
+            add_history(line);
+            lexer = init_lexer(env, line);
+            cmds_list = parce_list_shell(lexer);
+        //preter_final_list(cmds_list);
+        execute(cmds_list);
+        //printf("after exec\n");
+        //}
         //preter(cmds_list);
         // while(token_list)
         // {

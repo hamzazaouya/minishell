@@ -68,12 +68,12 @@ char *get_type_pro(char *s, int *k)
         return NULL;
     while(s[i])
     {
-        if ((s[0] == '=' || s[0] == '+') || (s[i] = '+' && s[i + 1] != '='))
+        if ((s[0] == '=' || s[0] == '+') || (s[i] == '+' && s[i + 1] != '='))
         {
             printf("export: `%s': not a valid identifier\n",s);
             return (NULL);
         }
-        if (s[i] == '=')
+        if (s[i] == '=' || s[i] == '+')
         {
             if (s[i] == '+')
                 *k = 1;
@@ -96,34 +96,20 @@ void my_export(char **arg, t_env **env)
     char *type = NULL;
     char *content = NULL;
     int k;
-    //ghanakhad arg li3tani ghanzido f env ila makanch ila kan ghanbadlo 
-    //(void)type;
-    //(void)content;
-    //(void)env;
+    
     int i = 0;
-    /*while(arg[i])
-    {
-        printf("%s\n",arg[i]);
-        i++;
-    }*/
+    
     (arg)++;
     i = 0;
-    /*while(arg[i])
-    {
-        printf("-->%s\n",arg[i]);
-        i++;
-    }*/
+    
     if (*arg == NULL)
         printf("declare \n");
     while(*arg != NULL)
     {
-        //printf("")
         k = 0;
         type = get_type_pro(*arg, &k);
-        //printf("type:%s\n",type);
         if (type != NULL)
             content = get_content(*arg);
-        //printf("content:%s\n",content);
         if (type != NULL)
         {
             if (type_exist(env, type) == 1)
@@ -139,8 +125,6 @@ void my_export(char **arg, t_env **env)
                 ajouter_env(env,type,content);
             }
         }
-        //printf("====\n");
         (arg)++;
-        //printf("0====\n");
     }
 }

@@ -51,6 +51,7 @@ void	execute(t_cmds *cmds)
 	int	len;
 
 	len = exec_cmd_len(cmds);
+	//printf("-->%d\n",len);
 	end_p = -1;
 	while(cmds)
 	{
@@ -58,17 +59,14 @@ void	execute(t_cmds *cmds)
 			pipe(p);
 		
 		if (len == 1 && cmds->exec_cmd->type != -1)
-		{
-			exec_builtins(cmds, 0);
-			//exit(0);
-			//my_exit(cmds->exec_cmd->cmd, &data->list_env);;
-		}
+			exec_builtins(cmds, 1);
 		else
 		{
 		id = fork();
 		if(id == 0)
 		{
-			
+			signals();
+			//signal(SIGINT, proc_signal_handler);
 			if(cmds->in_redire > 2)
 				dup2(cmds->in_redire, 1);
 			if(end_p != -1)

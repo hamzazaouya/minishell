@@ -11,6 +11,7 @@ SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c 
 SRC_PATH = src
 OBJ_PATH  = obj
 LIB = include/libft.a
+READLINE_DIR = ~/goinfre/.brew/opt/readline/
 .PHONY:	all clean fclean re bonus
 
 CC = cc
@@ -23,10 +24,10 @@ OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
 all : $(OBJ_PATH) $(NAME)
 
 $(NAME) : $(OBJS) 
-	$(CC) $(SIG) -lreadline $(LIB) $(OBJS) -o  $(NAME)
+	$(CC) $(SIG) -lreadline -I $(READLINE_DIR)include -L $(READLINE_DIR)lib $(LIB) $(OBJS) -o  $(NAME)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c include/$(HEADER)
-	@$(CC)  -c -o  $@ $<
+	@$(CC) -I $(READLINE_DIR)include  -c -o  $@ $<
 
 $(OBJ_PATH):
 	@mkdir obj

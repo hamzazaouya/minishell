@@ -31,10 +31,13 @@ void preter_final_list(t_cmds *cmds_list)
         printf("type = %d\n", cmds_list->type);
         printf("input = %d\n", cmds_list->in_redire);
         printf("output = %d\n", cmds_list->out_redire);
-        printf("Cmd Type = %d\n", cmds_list->exec_cmd->type);
-        printf("CmdPath = %s\n", cmds_list->exec_cmd->path);
-        while(cmds_list->exec_cmd->cmd && cmds_list->exec_cmd->cmd[i])
-            printf("\'%s\' ", cmds_list->exec_cmd->cmd[i++]);
+        if(cmds_list->exec_cmd)
+        {
+            printf("Cmd Type = %d\n", cmds_list->exec_cmd->type);
+            printf("CmdPath = %s\n", cmds_list->exec_cmd->path);
+            while(cmds_list->exec_cmd->cmd && cmds_list->exec_cmd->cmd[i])
+                printf("\'%s\' ", cmds_list->exec_cmd->cmd[i++]);
+        }
         printf("\n--------------------------\n");
         cmds_list = cmds_list->next;
     }
@@ -81,7 +84,7 @@ int main(int argc, char ** argv, char **env)
         // }
         free(line);
         //parce_free_cmd_shell(cmds_list);
-        data->exit_code = 0;
+        // data->exit_code = 0;
     }
     free(data->list_env);
 }

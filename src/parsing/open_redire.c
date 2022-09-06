@@ -21,7 +21,6 @@ int	parce_open_files(t_redire *redire)
 		{
 			write(2,strerror(errno) , ft_strlen(strerror(errno)));
 			write(2, "\n", 1);
-			data->exit_code = 1;
 			return (1);
 		}
 		redire = redire->next;

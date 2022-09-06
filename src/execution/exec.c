@@ -56,7 +56,6 @@ void	execute(t_cmds *cmds)
 	{
 		if(cmds->next)
 			pipe(p);
-		
 		if (len == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)
 			exec_builtins(cmds, 1);
 		else if(!cmds->type)
@@ -64,7 +63,6 @@ void	execute(t_cmds *cmds)
 			id = fork();
 			if(id == 0)
 			{
-				//signals();
 				signal(SIGINT, proc_signal_handler);
 				if(cmds->in_redire > 2)
 					dup2(cmds->in_redire, 1);
@@ -98,6 +96,7 @@ void	execute(t_cmds *cmds)
 				close(p[1]);
 			}
 		}
+		data->exit_code = cmds->type;
 		cmds = cmds->next;
 	}
 	exec_wait(len);

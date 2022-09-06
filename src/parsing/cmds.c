@@ -79,6 +79,8 @@ t_exec_cmd *parce_cmd_exec_init(char **cmd)
 {
     t_exec_cmd *cmd_exec;
 
+    if(!cmd)
+        return (NULL);
     cmd_exec = (t_exec_cmd *) malloc(sizeof(t_exec_cmd));
     cmd_exec->cmd = cmd;
     cmd_exec->type = parce_check_cmd_type(cmd[0]);
@@ -145,8 +147,8 @@ t_cmds *parce_copy_cmds(t_cmd *cmd_list)
     cmds = parce_get_cmds_init();
     cmds->type = cmd_list->type;
     cmds->exec_cmd = parce_cmd_exec_init(cmd_list->cmd);
-    if(cmds->exec_cmd->type == -1 && !cmds->exec_cmd->path)
-        cmds->type = 1;
+    if(cmds->exec_cmd && cmds->exec_cmd->type == -1 && !cmds->exec_cmd->path)
+            cmds->type = 1;
     cmds->in_redire = parce_get_initred(cmd_list->redire_list);
     cmds->out_redire = parce_get_outred(cmd_list->redire_list);
     return (cmds);

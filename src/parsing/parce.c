@@ -148,7 +148,7 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, t_token *token, char *cmd_val
 	return (cmd);
 }
 
-t_cmds	*parce_list_shell(t_lexer *lexer)
+t_cmds	* parce_list_shell(t_lexer *lexer)
 {
 	t_cmd   *cmd_list;
     t_cmd	*cmd_shell;

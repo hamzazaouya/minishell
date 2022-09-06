@@ -51,22 +51,21 @@ void	execute(t_cmds *cmds)
 	int	len;
 
 	len = exec_cmd_len(cmds);
-	//printf("-->%d\n",len);
 	end_p = -1;
 	while(cmds)
 	{
 		if(cmds->next)
 			pipe(p);
 		
-		if (len == 1 && cmds->exec_cmd->type != -1)
+		if (len == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)
 			exec_builtins(cmds, 1);
 		else
 		{
 		id = fork();
 		if(id == 0)
 		{
-			signals();
-			//signal(SIGINT, proc_signal_handler);
+			//signals();
+			signal(SIGINT, proc_signal_handler);
 			if(cmds->in_redire > 2)
 				dup2(cmds->in_redire, 1);
 			if(end_p != -1)

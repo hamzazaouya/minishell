@@ -34,7 +34,7 @@ char    *lexer_get_var_name(t_lexer *lexer)
     char    *s;
 
     var_name = NULL;
-    while(ft_isalnum(lexer->c))
+    while(ft_isalnum(lexer->c) || lexer->c == '_')
     {
         s = lexer_get_current_char_as_string(lexer);
 		var_name = ft_collect(var_name, s);

@@ -59,44 +59,44 @@ void	execute(t_cmds *cmds)
 		
 		if (len == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)
 			exec_builtins(cmds, 1);
-		else
+		else if(!cmds->type)
 		{
-		id = fork();
-		if(id == 0)
-		{
-			//signals();
-			signal(SIGINT, proc_signal_handler);
-			if(cmds->in_redire > 2)
-				dup2(cmds->in_redire, 1);
-			if(end_p != -1)
+			id = fork();
+			if(id == 0)
 			{
-				dup2(end_p, 0);
-				close(end_p);
-			}
-			if(cmds->out_redire > 2)
-				dup2(cmds->out_redire, 1);
-			if (cmds->next)
-			{
-				
-				dup2(p[1], 1);
-				close(p[1]);
-			}
-			close(p[0]);
-			if(cmds->exec_cmd->type != -1)
-			{
-				exec_builtins(cmds, 0);
-				exit(0);
+				//signals();
+				signal(SIGINT, proc_signal_handler);
+				if(cmds->in_redire > 2)
+					dup2(cmds->in_redire, 1);
+				if(end_p != -1)
+				{
+					dup2(end_p, 0);
+					close(end_p);
+				}
+				if(cmds->out_redire > 2)
+					dup2(cmds->out_redire, 1);
+				if (cmds->next)
+				{
+					
+					dup2(p[1], 1);
+					close(p[1]);
+				}
+				close(p[0]);
+				if(cmds->exec_cmd->type != -1)
+				{
+					exec_builtins(cmds, 0);
+					exit(0);
+				}
+				else
+					execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
 			}
 			else
-				execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
-		}
-		else
-		{
-			if(end_p != -1)
-				close(end_p);
-			end_p = p[0];
-			close(p[1]);
-		}
+			{
+				if(end_p != -1)
+					close(end_p);
+				end_p = p[0];
+				close(p[1]);
+			}
 		}
 		cmds = cmds->next;
 	}

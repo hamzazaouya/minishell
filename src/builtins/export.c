@@ -62,14 +62,15 @@ void    ajouter_env(t_env **env, char *type, char *content)
 char *get_type_pro(char *s, int *k)
 {
     char *r;
-    int i = 0;
+    size_t i = 0;
     int j = 0;
     if (s == NULL)
         return NULL;
     while(s[i])
     {
-        if ((s[0] == '=' || s[0] == '+') || (s[i] == '+' && s[i + 1] != '='))
+        if ((s[0] >= '0' & s[0] <= '9') || s[i] == '-' || (s[i] == '+' && s[i + 1] != '='))
         {
+            // printf("caractere >%c\n",s[i]);
             printf("export: `%s': not a valid identifier\n",s);
             return (NULL);
         }
@@ -80,14 +81,10 @@ char *get_type_pro(char *s, int *k)
             break;
         }
         i++;
+        // printf("i==>%zu\n",i);
     }
-    r = malloc(i + 1);
-    while(j < i)
-    {
-        r[j] = s[j]; 
-        j++;
-    }
-    r[j] = 0;
+    r = ft_str(s, i);
+    //printf("r==>%s\n",r);
     return r;
 }
 
@@ -100,6 +97,28 @@ void    declare_print(t_env *env)
     }
 }
 
+char *get_content_pro(char *arg)
+{
+    int i;
+    char *content;
+
+    content = NULL;
+    i = 0;
+    while(arg[i])
+    {
+        if (arg[i] == '=')
+            break;
+        i++;
+    }
+    if (arg[i] == '=')
+    {
+        arg = arg + i + 1;
+        content = ft_strdup(arg);
+    }
+    else
+        content = ft_strdup("");
+    return (content);
+}
 int my_export(char **arg, t_env **env)
 {
     char *type = NULL;
@@ -119,11 +138,15 @@ int my_export(char **arg, t_env **env)
     }
     while(*arg != NULL)
     {
+        /*if (cheak_arg(arg) == 1) 
+            return 1;*/
         k = 0;
         type = get_type_pro(*arg, &k);
         if (type != NULL)
         {
-            content = get_content(*arg);
+            content = get_content_pro(*arg);
+            // printf("get_cont%s\n",content);
+
             if (type_exist(env, type) == 1)
             {
                 if (k == 0)
@@ -140,6 +163,7 @@ int my_export(char **arg, t_env **env)
         else
             return (1);
         (arg)++;
+
     }
     return (0);
 }

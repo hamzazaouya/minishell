@@ -91,11 +91,21 @@ char *get_type_pro(char *s, int *k)
     return r;
 }
 
-void my_export(char **arg, t_env **env)
+void    declare_print(t_env *env)
+{
+    while(env)
+    {
+        printf("declare -x %s=%s\n",env->type,env->content);
+        env = env->next;
+    }
+}
+
+int my_export(char **arg, t_env **env)
 {
     char *type = NULL;
     char *content = NULL;
     int k;
+    int r;
     
     int i = 0;
     
@@ -103,15 +113,17 @@ void my_export(char **arg, t_env **env)
     i = 0;
     
     if (*arg == NULL)
-        printf("declare \n");
+    {
+        declare_print(*env);
+        return (0);
+    }
     while(*arg != NULL)
     {
         k = 0;
         type = get_type_pro(*arg, &k);
         if (type != NULL)
-            content = get_content(*arg);
-        if (type != NULL)
         {
+            content = get_content(*arg);
             if (type_exist(env, type) == 1)
             {
                 if (k == 0)
@@ -125,6 +137,9 @@ void my_export(char **arg, t_env **env)
                 ajouter_env(env,type,content);
             }
         }
+        else
+            return (1);
         (arg)++;
     }
+    return (0);
 }

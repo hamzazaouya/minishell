@@ -2,8 +2,16 @@
 
 void	exec_builtins(t_cmds *cmds, int k)
 {
+	int r;
+
 	if(cmds->exec_cmd->type == 0)
-		my_cd(cmds->exec_cmd->cmd, &data->list_env);
+	{	
+		r = my_cd(cmds->exec_cmd->cmd, &data->list_env);
+		if (!k)
+			exit(r);
+		else
+			data->exit_code = 1;
+	}
 	else if(cmds->exec_cmd->type == 1)
 		my_echo(cmds->exec_cmd->cmd);
 	else if(cmds->exec_cmd->type == 2)

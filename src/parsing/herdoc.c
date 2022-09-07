@@ -1,5 +1,16 @@
 #include "../../include/parce.h"
 
+char    *parce_expand_herdoc(char *line)
+{
+    int i;
+
+    i = 0;
+    while(line[i])
+    {
+        
+    }
+}
+
 void	parce_read_herdoc(t_redire *redire)
 {
 	int		check;
@@ -14,6 +25,7 @@ void	parce_read_herdoc(t_redire *redire)
 			break;
 		check = ft_strncmp(line, redire->value, \
 				ft_strlen(redire->value));
+		//line = 
 		if (check)
         {
 			write(redire->fd[1], line, ft_strlen(line));

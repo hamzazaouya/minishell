@@ -80,6 +80,7 @@ void	execute(t_cmds *cmds)
 					close(p[1]);
 				}
 				close(p[0]);
+				printf("Hello\n");
 				if(cmds->exec_cmd->type != -1)
 				{
 					exec_builtins(cmds, 0);
@@ -100,4 +101,5 @@ void	execute(t_cmds *cmds)
 		cmds = cmds->next;
 	}
 	exec_wait(len);
+	
 }

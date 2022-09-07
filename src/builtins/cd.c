@@ -134,7 +134,7 @@ static int	ft_check_error(char **str_array)
 		ft_putstr_fd(err_msg, 2);
 		ft_putstr_fd("\n", 2);
 		free(err_msg);
-		exit(1); //l3arbiiii matnsach
+		//exit(1); //l3arbiiii matnsach
 		return (1);
 	}
 	return (0);

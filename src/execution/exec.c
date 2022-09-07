@@ -1,9 +1,11 @@
 #include "../../include/minishell.h"
 
-void	exec_builtins(t_cmds *cmds, int k)
+int	exec_builtins(t_cmds *cmds, int k)
 {
+	int r;
+
 	if(cmds->exec_cmd->type == 0)
-		my_cd(cmds->exec_cmd->cmd, &data->list_env);
+		r = my_cd(cmds->exec_cmd->cmd, &data->list_env);
 	else if(cmds->exec_cmd->type == 1)
 		my_echo(cmds->exec_cmd->cmd);
 	else if(cmds->exec_cmd->type == 2)
@@ -16,6 +18,7 @@ void	exec_builtins(t_cmds *cmds, int k)
 		my_pwd();
 	else if(cmds->exec_cmd->type == 6)
 		my_unset(cmds->exec_cmd->cmd, &data->list_env);
+	return (r);
 }
 
 int		exec_cmd_len(t_cmds *cmds)
@@ -98,10 +101,7 @@ void	execute(t_cmds *cmds)
 				close(p[1]);
 				close(p[0]);
 				if(cmds->exec_cmd->type != -1)
-				{
-					exec_builtins(cmds, 0);
-					exit(0);
-				}
+					exit(exec_builtins(cmds, 0));
 				else
 					execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
 			}

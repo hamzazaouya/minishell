@@ -73,7 +73,8 @@ int main(int argc, char ** argv, char **env)
         lexer = init_lexer(env, line);
         cmds_list = parce_list_shell(lexer);
         //preter_final_list(cmds_list);
-        execute(cmds_list);
+        if(cmds_list)
+            execute(cmds_list);
         //printf("after exec\n");
         //}
         //preter(cmds_list);

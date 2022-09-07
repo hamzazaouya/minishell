@@ -156,6 +156,7 @@ t_cmds	* parce_list_shell(t_lexer *lexer)
 	char	*value;
 
 	cmd_list = NULL;
+	cmds_list = NULL;
     while(lexer->c)
     {
 		value = NULL;
@@ -165,7 +166,10 @@ t_cmds	* parce_list_shell(t_lexer *lexer)
 		else
 			parce_cmd_add_back(&cmd_list, cmd_shell);
     }
-	parce_open_redire(cmd_list);
-	cmds_list = parce_get_cmds(cmd_list);
+	if(cmd_list)
+	{
+		parce_open_redire(cmd_list);
+		cmds_list = parce_get_cmds(cmd_list);
+	}
 	return (cmds_list);
 }

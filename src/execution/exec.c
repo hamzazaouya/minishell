@@ -31,16 +31,30 @@ int		exec_cmd_len(t_cmds *cmds)
 	return (i);
 }
 
-void	exec_wait(int	len)
+void	exec_wait(t_cmds *cmds, int	len)
 {
 	int i;
+	int status;
+	t_cmds *tmp;
 
+	status = 0;
 	i = 0;
+	tmp = cmds;
+	while (tmp->next)
+		tmp = tmp->next;
 	while(i < len)
 	{
-		wait(NULL);
+		wait(&status);
+		if (WIFEXITED(status))
+			data->exit_code = WEXITSTATUS(status);
+		if (status == 2)
+			data->exit_code = 130;
+		if (status == 3)
+			data->exit_code = 131;
 		i++;
 	}
+	if (tmp->type)
+		data->exit_code = tmp->type;
 }
 
 void	execute(t_cmds *cmds)
@@ -49,7 +63,8 @@ void	execute(t_cmds *cmds)
 	int	p[2];
 	int	id;
 	int	len;
-
+	t_cmds *tmp;
+	tmp = cmds;
 	len = exec_cmd_len(cmds);
 	end_p = -1;
 	while(cmds)
@@ -61,26 +76,27 @@ void	execute(t_cmds *cmds)
 		else if(!cmds->type)
 		{
 			id = fork();
-			if(id == 0)
+			if(id == -1)
+			{
+				printf("Error in fork\n");
+				break ;
+			}
+			else if(id == 0)
 			{
 				signal(SIGINT, proc_signal_handler);
 				if(cmds->in_redire > 2)
-					dup2(cmds->in_redire, 1);
-				if(end_p != -1)
+					dup2(cmds->in_redire, 0);
+				else if(end_p != -1)
 				{
 					dup2(end_p, 0);
 					close(end_p);
 				}
 				if(cmds->out_redire > 2)
 					dup2(cmds->out_redire, 1);
-				if (cmds->next)
-				{
-					
+				else if (cmds->next)
 					dup2(p[1], 1);
-					close(p[1]);
-				}
+				close(p[1]);
 				close(p[0]);
-				printf("Hello\n");
 				if(cmds->exec_cmd->type != -1)
 				{
 					exec_builtins(cmds, 0);
@@ -95,11 +111,13 @@ void	execute(t_cmds *cmds)
 					close(end_p);
 				end_p = p[0];
 				close(p[1]);
+				if(cmds->in_redire > 2)
+					close(cmds->in_redire);
+				if(cmds->out_redire > 2)
+					close(cmds->out_redire);
 			}
 		}
-		data->exit_code = cmds->type;
 		cmds = cmds->next;
 	}
-	exec_wait(len);
-	
+	exec_wait(tmp, len);
 }

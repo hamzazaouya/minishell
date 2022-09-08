@@ -21,6 +21,12 @@ char*	parce_cmd_without_path(t_cmd *cmd_list)
 
 	i = 0;
     path = get_content_from_env(data->list_env, "PATH");
+    if (!path)
+    {
+        ft_putstr_fd("No such file or directory\n",2);
+		cmd_list->type = 127;
+        return (NULL);
+    }
     paths = ft_split(path, ':');
     free(path);
 	while (paths[i])
@@ -58,19 +64,19 @@ char    *parce_get_cmd_path(t_cmd *cmd_list)
 
 int parce_check_cmd_type(char *cmd)
 {
-    if(!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+    if(!ft_strcmp(cmd, "cd"))
         return (0);
-    else if(!ft_strncmp(cmd, "echo",ft_strlen(cmd)))
+    else if(!ft_strcmp(cmd, "echo"))
         return (1);
-    else if(!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+    else if(!ft_strcmp(cmd, "env"))
         return (2);
-    else if(!ft_strncmp(cmd, "exit",ft_strlen(cmd)))
+    else if(!ft_strcmp(cmd, "exit"))
         return (3);
-    else if(!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+    else if(!ft_strcmp(cmd, "export"))
         return (4);
-    else if(!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+    else if(!ft_strcmp(cmd, "pwd"))
         return (5);
-    else if(!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+    else if(!ft_strcmp(cmd, "unset"))
         return (6);
     return (-1);
 }

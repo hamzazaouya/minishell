@@ -13,7 +13,7 @@ void	parce_read_herdoc(t_redire *redire)
 		if(!line)
 			break;
 		check = ft_strncmp(line, redire->value, \
-				ft_strlen(redire->value));
+				ft_strlen(line));
 		if (check)
         {
 			write(redire->fd[1], line, ft_strlen(line));

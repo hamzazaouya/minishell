@@ -43,6 +43,20 @@ void preter_final_list(t_cmds *cmds_list)
     }
 }
 
+void    print_array_str(char **s)
+{
+    int i;
+
+    i = 0;
+    if (s)
+    {
+        while (s[i])
+        {
+            printf("%s\n",s[i]);
+            i++;
+        }
+    }
+}
 int main(int argc, char ** argv, char **env)
 {
     t_lexer*	lexer;
@@ -52,12 +66,16 @@ int main(int argc, char ** argv, char **env)
     int			i;
 
 	data = (t_data *) malloc(sizeof(t_data));
-    data->env = env;
+    data->env = NULL;
 	data->exit_code = 0;
     init_env(&data->list_env, env);
+    update_env(&data->list_env);
     signal(SIGINT, signal_handler);
     while(1)
     {
+        // printf("before pirnt\n");
+        // print_array_str(data->env);
+        // printf("after pirnt\n");
         data->signal = 0;
         line = readline(GRN "Minishell $: " RESET);
         if(!line)

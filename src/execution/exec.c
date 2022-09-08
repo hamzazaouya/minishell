@@ -4,6 +4,7 @@ int	exec_builtins(t_cmds *cmds, int k)
 {
 	int r;
 
+	r = 0;
 	if(cmds->exec_cmd->type == 0)
 		r = my_cd(cmds->exec_cmd->cmd, &data->list_env);
 	else if(cmds->exec_cmd->type == 1)
@@ -13,7 +14,7 @@ int	exec_builtins(t_cmds *cmds, int k)
 	else if(cmds->exec_cmd->type == 3)
 		my_exit(cmds->exec_cmd->cmd, &data->list_env, k);
 	else if(cmds->exec_cmd->type == 4)
-		my_export(cmds->exec_cmd->cmd, &data->list_env);
+		r = my_export(cmds->exec_cmd->cmd, &data->list_env);
 	else if(cmds->exec_cmd->type == 5)
 		my_pwd();
 	else if(cmds->exec_cmd->type == 6)
@@ -75,7 +76,7 @@ void	execute(t_cmds *cmds)
 		if(cmds->next)
 			pipe(p);
 		if (len == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)
-			exec_builtins(cmds, 1);
+			cmds->type = exec_builtins(cmds, 1);
 		else if(!cmds->type)
 		{
 			id = fork();

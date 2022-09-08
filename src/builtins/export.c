@@ -62,14 +62,15 @@ void    ajouter_env(t_env **env, char *type, char *content)
 char *get_type_pro(char *s, int *k)
 {
     char *r;
-    int i = 0;
+    size_t i = 0;
     int j = 0;
     if (s == NULL)
         return NULL;
     while(s[i])
     {
-        if ((s[0] == '=' || s[0] == '+') || (s[i] == '+' && s[i + 1] != '='))
+        if ((s[0] >= '0' & s[0] <= '9') || s[i] == '-' || (s[i] == '+' && s[i + 1] != '='))
         {
+            // printf("caractere >%c\n",s[i]);
             printf("export: `%s': not a valid identifier\n",s);
             return (NULL);
         }
@@ -80,22 +81,122 @@ char *get_type_pro(char *s, int *k)
             break;
         }
         i++;
+        // printf("i==>%zu\n",i);
     }
-    r = malloc(i + 1);
-    while(j < i)
-    {
-        r[j] = s[j]; 
-        j++;
-    }
-    r[j] = 0;
+    r = ft_str(s, i);
+    //printf("r==>%s\n",r);
     return r;
 }
 
-void my_export(char **arg, t_env **env)
+void    declare_print(t_env *env)
+{
+    while(env)
+    {
+        printf("declare -x %s=%s\n",env->type,env->content);
+        env = env->next;
+    }
+}
+
+char *get_content_pro(char *arg)
+{
+    int i;
+    char *content;
+
+    content = NULL;
+    i = 0;
+    while(arg[i])
+    {
+        if (arg[i] == '=')
+            break;
+        i++;
+    }
+    if (arg[i] == '=')
+    {
+        arg = arg + i + 1;
+        content = ft_strdup(arg);
+    }
+    else
+        content = ft_strdup("");
+    return (content);
+}
+
+int cheak_arg(char **arg)
+{
+    int i;
+    int j;
+
+    i = 0;
+    (arg)++;
+    while(arg[i])
+    {
+        // printf("arg[i]->%s\n",arg[i]);
+        j = 0;
+        while (arg[i][j])
+        {
+            // printf("==>%c\n",arg[i][j]);
+            // printf("in while will\n");
+            if ((j == 0 && !ft_isalpha(arg[i][j])) || (j != 0 && !ft_isdigit(arg[i][j]) && !ft_isalpha(arg[i][j])) )
+            {
+                printf("export: `%s': not a valid identifier\n",arg[i]);
+                return 1;
+            }
+            j++;
+            // printf("j=>%d\n",j);
+            //sleep(1);
+        }
+        // printf("arg===>%s\n",arg[i]);
+        i++;
+    }
+    return 0;
+}
+
+int size_of_list(t_env **env)
+{
+    int i;
+
+    i = 0;
+    while(*env)
+    {
+        i++;
+        *env = (*env)->next;
+    }
+    return (i);
+}
+
+void update_env(t_env **env)
+{
+    t_env *h_env;
+
+    h_env = *env;
+    int len_env = size_of_list(&h_env);
+    //printf("len %d\n",len_env);
+    char **r;
+    int i;
+
+    i = 0;
+    r = malloc(sizeof(char *) * len_env);
+    while(h_env)
+    {
+        r[i] = ft_strjoin("", h_env->type);
+        r[i] = ft_strjoin(r[i], "=");
+        r[i] = ft_strjoin(r[i], h_env->content);
+        h_env = h_env->next;
+        i++;
+    }
+    // printf("before free\n");
+    free_arry_of_chars(data->env);
+    // printf("after free\n");
+    data->env = r;
+}
+
+int my_export(char **arg, t_env **env)
 {
     char *type = NULL;
     char *content = NULL;
     int k;
+    int r;
+    char **copy_arg = arg;
+    
     
     int i = 0;
     
@@ -103,15 +204,26 @@ void my_export(char **arg, t_env **env)
     i = 0;
     
     if (*arg == NULL)
-        printf("declare \n");
+    {
+        declare_print(*env);
+        return (0);
+    }
+    // printf("before cheak\n");
+    if (cheak_arg(copy_arg) == 1)
+            return 1;
+    // printf("after cheak\n");
+    //sleep(5);
+    // printf("arg:%s\n",*arg);
     while(*arg != NULL)
     {
         k = 0;
         type = get_type_pro(*arg, &k);
-        if (type != NULL)
-            content = get_content(*arg);
+        // printf("type:%s\n",type);
         if (type != NULL)
         {
+            content = get_content_pro(*arg);
+            //printf("get_cont%s\n",content);
+
             if (type_exist(env, type) == 1)
             {
                 if (k == 0)
@@ -125,6 +237,13 @@ void my_export(char **arg, t_env **env)
                 ajouter_env(env,type,content);
             }
         }
+        else
+            return (1);
         (arg)++;
+
     }
+    // printf("before update\n");
+    update_env(env);
+    // printf("after update\n");
+    return (0);
 }

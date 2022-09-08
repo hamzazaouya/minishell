@@ -6,6 +6,7 @@
 
 
 void init_env(t_env **list_env,char **env);
+void update_env(t_env **env);
 char *get_content_from_env(t_env *list_env, char *type);
 void    free_env(t_env **list_env);
 char *get_content(char *content);

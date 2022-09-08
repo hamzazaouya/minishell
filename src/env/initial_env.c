@@ -12,6 +12,7 @@ char *get_content_from_env(t_env *list_env, char *type)
         }
         list_env = list_env->next;
     }
+    data->exit_code = 256;
     return (NULL);
 }
 

@@ -5,6 +5,6 @@ void *single_double_qoute_err(char *value)
 {
 	free(value);
     write(2, "Error: No Closing qoute\n", ft_strlen("Error: No Closing qoute\n"));
-	data->exit_code = 256;
+	data->exit_code = 1;
 	return (NULL);
 }

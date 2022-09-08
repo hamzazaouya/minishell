@@ -86,9 +86,9 @@ char *parce_word(t_token *token, char *cmd_value)
 	char *cmd1;
 	char *cmd2;
 
-	if(!token->value && !cmd_value)
+	if((!token->value && !cmd_value))
 		return (NULL);
-	else if(!token->value)
+	else if(!token->value && data->exit_code == 256)
 		return (cmd_value);
 	else {
 		if(!cmd_value)
@@ -115,7 +115,7 @@ char *parce_word(t_token *token, char *cmd_value)
 		if(cmd_value)
 			free(cmd_value);
 		return (cmd2); 
-	}  
+	}
 	return (NULL);                                                                                                                                                                                                                                
 }
 
@@ -128,7 +128,7 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, t_token *token, char *cmd_val
 		if (token->type == TOKEN_WORD)
 		{
 			cmd_value = parce_word(token, cmd_value);
-			if(data->exit_code == 256)
+			if(!cmd_value)
 				return (parce_free_cmd(cmd, token, cmd_value));
 		}
 		else

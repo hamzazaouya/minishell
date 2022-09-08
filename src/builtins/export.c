@@ -83,6 +83,8 @@ char *get_type_pro(char *s, int *k)
         i++;
         // printf("i==>%zu\n",i);
     }
+    if (!s[i])
+        return (NULL);
     r = ft_str(s, i);
     //printf("r==>%s\n",r);
     return r;
@@ -131,17 +133,20 @@ int cheak_arg(char **arg)
     {
         // printf("arg[i]->%s\n",arg[i]);
         j = 0;
-        while (arg[i][j])
+        while (arg[i][j] != '=')
         {
             // printf("==>%c\n",arg[i][j]);
             // printf("in while will\n");
-            if ((j == 0 && !ft_isalpha(arg[i][j])) || (j != 0 && !ft_isdigit(arg[i][j]) && !ft_isalpha(arg[i][j])) )
+            if (arg[i][j] == '\0')
+                return 0;
+            // printf("is alpha:%d,is dejit%d\n",ft_isalpha(arg[i][j]),ft_isdigit(arg[i][j]));
+            if ((j == 0 && (!ft_isalpha(arg[i][j]) && !(arg[i][j] == '_'))) || (j != 0 && (!ft_isdigit(arg[i][j]) && !ft_isalpha(arg[i][j])) && !(arg[i][j] == '+') && !(arg[i][j] == '_')))
             {
-                printf("export: `%s': not a valid identifier\n",arg[i]);
+                // printf("j=>%d\n",j);
+                // printf("export: `%s': not a valid identifier\n",arg[i]);
                 return 1;
             }
             j++;
-            // printf("j=>%d\n",j);
             //sleep(1);
         }
         // printf("arg===>%s\n",arg[i]);
@@ -150,26 +155,26 @@ int cheak_arg(char **arg)
     return 0;
 }
 
-int size_of_list(t_env **env)
+int size_of_list(t_env *env)
 {
     int i;
 
     i = 0;
-    while(*env)
+    while(env)
     {
         i++;
-        *env = (*env)->next;
+        env = env->next;
     }
     return (i);
 }
 
-void update_env(t_env **env)
+char **update_env(t_env **env)
 {
     t_env *h_env;
 
     h_env = *env;
-    int len_env = size_of_list(&h_env);
-    //printf("len %d\n",len_env);
+    int len_env = size_of_list(h_env);
+    // printf("len %d\n",len_env);
     char **r;
     int i;
 
@@ -177,16 +182,18 @@ void update_env(t_env **env)
     r = malloc(sizeof(char *) * len_env);
     while(h_env)
     {
+        // printf("1\n");
         r[i] = ft_strjoin("", h_env->type);
         r[i] = ft_strjoin(r[i], "=");
         r[i] = ft_strjoin(r[i], h_env->content);
         h_env = h_env->next;
         i++;
     }
-    // printf("before free\n");
+    //  printf("before free\n");
     free_arry_of_chars(data->env);
-    // printf("after free\n");
-    data->env = r;
+    //print_array_str(r);
+    //  printf("after free\n");
+    return (r);
 }
 
 int my_export(char **arg, t_env **env)
@@ -208,7 +215,7 @@ int my_export(char **arg, t_env **env)
         declare_print(*env);
         return (0);
     }
-    // printf("before cheak\n");
+    //  printf("before cheak\n");
     if (cheak_arg(copy_arg) == 1)
             return 1;
     // printf("after cheak\n");
@@ -218,7 +225,7 @@ int my_export(char **arg, t_env **env)
     {
         k = 0;
         type = get_type_pro(*arg, &k);
-        // printf("type:%s\n",type);
+        //  printf("type:%s\n",type);
         if (type != NULL)
         {
             content = get_content_pro(*arg);
@@ -243,7 +250,8 @@ int my_export(char **arg, t_env **env)
 
     }
     // printf("before update\n");
-    update_env(env);
+    data->env= update_env(env);
     // printf("after update\n");
+    //my_env(env);
     return (0);
 }

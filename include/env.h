@@ -6,7 +6,7 @@
 
 
 void init_env(t_env **list_env,char **env);
-void update_env(t_env **env);
+char  **update_env(t_env **env);
 char *get_content_from_env(t_env *list_env, char *type);
 void    free_env(t_env **list_env);
 char *get_content(char *content);
@@ -17,4 +17,5 @@ void    ft_listadd_back_env(t_env **list_env, t_env *new);
 
 int ft_strcmp(char *s1, char *s2);
 char *ft_str(char *type, size_t s);
+void    print_array_str(char **s);
 #endif

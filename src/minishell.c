@@ -69,7 +69,10 @@ int main(int argc, char ** argv, char **env)
     data->env = NULL;
 	data->exit_code = 0;
     init_env(&data->list_env, env);
-    update_env(&data->list_env);
+    data->env = update_env(&data->list_env);
+    //printf("-->\n");
+    //print_array_str(data->env);
+    //printf("<---\n");
     signal(SIGINT, signal_handler);
     while(1)
     {

@@ -103,6 +103,6 @@ void    free_env(t_env **list_env)
             free(tmp);
         }
     }
-    update_env(list_env);
+    data->env = update_env(list_env);
     //list_env = NULL;
 }

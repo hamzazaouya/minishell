@@ -44,7 +44,12 @@ t_env	*ft_ch_value(t_env *ht, char *key, char *value)
 		}
 		h = h->next;
 	}
-	free(old_value);
+	if (old_value)
+	{
+		old_value = NULL;
+		free(old_value);
+	}
+	//printf("in cheak value\n");
 	return (ht);
 	/*t_env	*element;
 	char		*value_holder;
@@ -70,6 +75,7 @@ static void	ft_update_pwd(t_env **env, char *old_pwd)
 	pwd = getcwd(pwd, BUFFER_SIZE);
 	//printf("-1>%s\n",pwd);
 	*env = ft_ch_value(*env, "PWD", pwd);
+	//printf("in update\n");
 	*env = ft_ch_value(*env, "OLDPWD", old_pwd);
 	if (pwd)
 		free(pwd);
@@ -78,7 +84,6 @@ static void	ft_update_pwd(t_env **env, char *old_pwd)
 static void	ft_do_cd(char **str_array, t_env **env)
 {
 	char	*old_pwd;
-
 	old_pwd = NULL;
 	old_pwd = getcwd(old_pwd, BUFFER_SIZE);
 	//printf("-->%s\n",str_array[1]);
@@ -91,6 +96,7 @@ static void	ft_do_cd(char **str_array, t_env **env)
 	}
 	else
 	{
+		//printf("in fuction \n");
 		ft_update_pwd(env, old_pwd);
 		//ft_update_pwd(env)
 	}
@@ -163,5 +169,6 @@ int	my_cd(char **str_array, t_env **env)
 	if (ft_check_error(str_array))
 		return (1);
 	ft_do_cd(str_array, env);
+	//printf("cheak free\n");
 	return (0);
 }

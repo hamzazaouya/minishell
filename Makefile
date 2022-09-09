@@ -1,3 +1,8 @@
+RED := \033[0;31m
+WHITE := \033[0;37m
+GREEN := \033[0;32m
+BLUE := \033[0;34m
+
 NAME = minishell
 //SIG  = `stty -echoctl`
 HEADER = minishell.h
@@ -22,6 +27,7 @@ OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
 
 
 all : $(OBJ_PATH) $(NAME)
+	@echo "$(BLUE)\n        :::   :::   ::::::::::: ::::    ::: ::::::::::: ::::::::  :::    ::: :::::::::: :::        :::  \n      :+:+: :+:+:      :+:     :+:+:   :+:     :+:    :+:    :+: :+:    :+: :+:        :+:        :+:   \n    +:+ +:+:+ +:+     +:+     :+:+:+  +:+     +:+    +:+        +:+    +:+ +:+        +:+        +:+    \n   +#+  +:+  +#+     +#+     +#+ +:+ +#+     +#+    +#++:++#++ +#++:++#++ +#++:++#   +#+        +#+     \n  +#+       +#+     +#+     +#+  +#+#+#     +#+           +#+ +#+    +#+ +#+        +#+        +#+      \n #+#       #+#     #+#     #+#   #+#+#     #+#    #+#    #+# #+#    #+# #+#        #+#        #+#       \n###       ### ########### ###    #### ########### ########  ###    ### ########## ########## ##########$(WHITE)\n\n\t\t$(RED)By$(WHITE):\n\t\t\t$(GREEN)Larbi Benalla $(WHITE)($(RED)Lmzoudi$(WHITE)) : $(BLUE)https://github.com/lbenalla $(WHITE)\n\t\t\t$(GREEN)Hamza Zaouya\t\t$(WHITE): $(BLUE)https://github.com/hamzazaouya$(WHITE)\n"
 
 $(NAME) : $(OBJS) 
 	$(CC) $(SIG) -lreadline -I $(READLINE_DIR)include -L $(READLINE_DIR)lib $(LIB) $(OBJS) -o  $(NAME)

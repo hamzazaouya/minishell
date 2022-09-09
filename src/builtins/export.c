@@ -189,8 +189,9 @@ char **update_env(t_env **env)
         h_env = h_env->next;
         i++;
     }
+    r[i] = NULL;
     //  printf("before free\n");
-    free_arry_of_chars(data->env);
+    //free_arry_of_chars(data->env);
     //print_array_str(r);
     //  printf("after free\n");
     return (r);
@@ -253,5 +254,8 @@ int my_export(char **arg, t_env **env)
     data->env= update_env(env);
     // printf("after update\n");
     //my_env(env);
+    //printf("-------------------------->\n");
+    //print_array_str(data->env);
+    //printf("-------------------------->\n");
     return (0);
 }

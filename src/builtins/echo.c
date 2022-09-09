@@ -28,6 +28,16 @@ void	my_echo(char **src)
 
 	n = 0;
 	i = 1;
+
+	// int j = 0;
+	// printf("-----\n");
+	// while (src[j])
+	// {
+	// 	printf("%s\n",src[j]);
+	// 	j++;
+	// }
+	// printf("-----\n");
+	
 	while (ft_echo_n(src[i]))
 	{
 		n = 1;

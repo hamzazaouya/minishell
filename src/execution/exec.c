@@ -49,6 +49,7 @@ void	exec_wait(t_cmds *cmds, int	len)
 	while(i < len)
 	{
 		wait(&status);
+		//signals_handler();
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		if (status == 2)
@@ -71,14 +72,17 @@ void	execute(t_cmds *cmds)
 	tmp = cmds;
 	len = exec_cmd_len(cmds);
 	end_p = -1;
+	// printf("000cmd:%s\n",cmds->exec_cmd->cmd[0]);
 	while(cmds)
 	{
+		// printf("1111cmd:%s\n",cmds->exec_cmd->cmd[0]);
 		if(cmds->next)
 			pipe(p);
 		if (len == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)
 			cmds->type = exec_builtins(cmds, 1);
 		else if(!cmds->type)
 		{
+			//printf("2222cmd:%s\n",cmds->exec_cmd->cmd[0]);
 			id = fork();
 			if(id == -1)
 			{
@@ -87,7 +91,11 @@ void	execute(t_cmds *cmds)
 			}
 			else if(id == 0)
 			{
-				signal(SIGINT, proc_signal_handler);
+				// printf("3333cmd:%s\n",cmds->exec_cmd->cmd[0]);
+				//signal(SIGINT, proc_signal_handler);
+				//signals();
+				//signals_handler();
+				//signals_handler_child();
 				if(cmds->in_redire > 2)
 					dup2(cmds->in_redire, 0);
 				else if(end_p != -1)
@@ -101,13 +109,23 @@ void	execute(t_cmds *cmds)
 					dup2(p[1], 1);
 				close(p[1]);
 				close(p[0]);
+				// printf("4444cmd:%s\n",cmds->exec_cmd->cmd[0]);
+
 				if(cmds->exec_cmd->type != -1)
 					exit(exec_builtins(cmds, 0));
 				else
+				{
+					//printf("55555cmd:%s\n",cmds->exec_cmd->cmd[0]);
+					//printf("path:%s\n",cmds->exec_cmd->path);
+					//print_array_str(data->env);
+					//printf("after print env in exeve\n");
+					//printf("i m here\n");
 					execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
+				}
 			}
 			else
 			{
+				data->signal = 0;
 				if(end_p != -1)
 					close(end_p);
 				end_p = p[0];
@@ -117,6 +135,7 @@ void	execute(t_cmds *cmds)
 				if(cmds->out_redire > 2)
 					close(cmds->out_redire);
 			}
+				
 		}
 		cmds = cmds->next;
 	}

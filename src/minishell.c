@@ -48,13 +48,15 @@ void    print_array_str(char **s)
     int i;
 
     i = 0;
-    if (s)
+    if (s != NULL)
     {
         while (s[i])
         {
             printf("%s\n",s[i]);
             i++;
         }
+        /*if (s[i] == NULL)
+            printf("NULL\n");*/
     }
 }
 int main(int argc, char ** argv, char **env)
@@ -64,7 +66,7 @@ int main(int argc, char ** argv, char **env)
     t_token		*token;
     char		*line;
     int			i;
-
+    //char prompt[14] = "Minishell $: ";
 	data = (t_data *) malloc(sizeof(t_data));
     data->env = NULL;
 	data->exit_code = 0;
@@ -73,14 +75,19 @@ int main(int argc, char ** argv, char **env)
     //printf("-->\n");
     //print_array_str(data->env);
     //printf("<---\n");
-    signal(SIGINT, signal_handler);
+    //signal(SIGINT, signal_handler);
+    signals();
+    //signals_handler();
+    //signal(SIGINT, signal_handler_ctrl_c);
     while(1)
     {
+        data->signal = 1;
         // printf("before pirnt\n");
         // print_array_str(data->env);
         // printf("after pirnt\n");
-        data->signal = 0;
+        
         line = readline(GRN "Minishell $: " RESET);
+        //line = readline(prompt);
         if(!line)
         {
             //printf(GRN "\nMinishell $: " RESET);
@@ -90,7 +97,8 @@ int main(int argc, char ** argv, char **env)
         //printf("--->%s:\n",line);
         //if (line)
         //{
-        add_history(line);
+        if (ft_strlen(line))
+            add_history(line);
         lexer = init_lexer(env, line);
         cmds_list = parce_list_shell(lexer);
         //preter_final_list(cmds_list);
@@ -108,5 +116,5 @@ int main(int argc, char ** argv, char **env)
         //parce_free_cmd_shell(cmds_list);
         // data->exit_code = 0;
     }
-    free(data->list_env);
+    //free
 }

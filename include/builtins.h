@@ -12,5 +12,5 @@ int		my_pwd(void);
 int     my_cd(char **str_array, t_env **env);
 int     my_export(char **arg, t_env **env);
 void    my_unset(char **arg, t_env **env);
-void    my_exit(char **arg, t_env **env, int k);
+int     my_exit(char **arg, t_env **env, int k);
 #endif

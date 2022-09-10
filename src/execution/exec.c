@@ -12,7 +12,7 @@ int	exec_builtins(t_cmds *cmds, int k)
 	else if(cmds->exec_cmd->type == 2)
 		my_env(&data->list_env);
 	else if(cmds->exec_cmd->type == 3)
-		my_exit(cmds->exec_cmd->cmd, &data->list_env, k);
+		r = my_exit(cmds->exec_cmd->cmd, &data->list_env, k);
 	else if(cmds->exec_cmd->type == 4)
 		r = my_export(cmds->exec_cmd->cmd, &data->list_env);
 	else if(cmds->exec_cmd->type == 5)
@@ -96,6 +96,7 @@ void	execute(t_cmds *cmds)
 				//signals();
 				//signals_handler();
 				//signals_handler_child();
+				//signals_child();
 				if(cmds->in_redire > 2)
 					dup2(cmds->in_redire, 0);
 				else if(end_p != -1)

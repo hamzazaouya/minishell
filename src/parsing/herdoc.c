@@ -6,14 +6,16 @@ void	parce_read_herdoc(t_redire *redire)
 	char	*line;
 
 	check = 0;
+	//signals();
     pipe(redire->fd);
 	while (1)
 	{
 		line = readline("> ");
 		if(!line)
 			break;
-		check = ft_strncmp(line, redire->value, \
-				ft_strlen(line));
+		//Signal ctrl-
+		
+		check = ft_strcmp(line, redire->value);
 		if (check)
         {
 			write(redire->fd[1], line, ft_strlen(line));
@@ -36,6 +38,7 @@ void    parce_open_herdoc(t_cmd *cmds_list)
 		redire = cmds_list->redire_list;
 		while(redire)
 		{
+			
 			if(redire->type == TOKEN_HERDOC)
 				parce_read_herdoc(redire);
 			redire = redire->next;

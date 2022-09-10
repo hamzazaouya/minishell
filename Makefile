@@ -4,7 +4,7 @@ GREEN := \033[0;32m
 BLUE := \033[0;34m
 
 NAME = minishell
-//SIG  = `stty -echoctl`
+#SIG  = `stty -echoctl`
 HEADER = minishell.h
 SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c  \
 			aid_funcs/funcs1.c aid_funcs/free.c aid_funcs/error.c  aid_funcs/function_use_libft.c\

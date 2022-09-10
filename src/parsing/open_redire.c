@@ -2,6 +2,7 @@
 
 int	parce_open_files(t_redire *redire)
 {
+		
 	while(redire)
 	{
 		if(!redire->value)
@@ -25,6 +26,7 @@ int	parce_open_files(t_redire *redire)
 		}
 		redire = redire->next;
 	}
+	//printf("after herdoc\n");
 	return (0);
 }
 
@@ -34,6 +36,7 @@ void	parce_open_redire(t_cmd *cmds_list)
 	t_cmd	*temp;
 
 	temp = cmds_list;
+	//printf("before herdoc\n");
     parce_open_herdoc(cmds_list);
     while(temp)
 	{

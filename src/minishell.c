@@ -84,7 +84,6 @@ int main(int argc, char ** argv, char **env)
         data->signal = 1;
         // printf("before pirnt\n");
         // print_array_str(data->env);
-        // printf("after pirnt\n");
         
         line = readline(GRN "Minishell $: " RESET);
         //line = readline(prompt);
@@ -101,6 +100,7 @@ int main(int argc, char ** argv, char **env)
             add_history(line);
         lexer = init_lexer(env, line);
         cmds_list = parce_list_shell(lexer);
+        
         //preter_final_list(cmds_list);
         if(cmds_list)
             execute(cmds_list);

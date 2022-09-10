@@ -12,8 +12,16 @@ void	sigint_handler(int sig)
 	(void) sig;
 }
 
+
 void	signals(void)
 {
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
+
+
+// void signals_child()
+// {
+// 	signal(SIGINT, SIGKILL);
+// 	signal(SIGQUIT, SIGKILL);
+// }

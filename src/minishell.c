@@ -103,7 +103,11 @@ int main(int argc, char ** argv, char **env)
         
         //preter_final_list(cmds_list);
         if(cmds_list)
+        {
             execute(cmds_list);
+            free_cmds_list(&cmds_list);
+            system("leaks minishell");
+        }
         //printf("after exec\n");
         //}
         //preter(cmds_list);

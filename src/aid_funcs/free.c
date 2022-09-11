@@ -31,8 +31,8 @@ void    free_cmds_list(t_cmds **cmds)
     temp2 = temp1;
     while(temp1)
     {
-        free_arry_of_chars(temp1->exec_cmd->cmd);
-        free(temp1->exec_cmd->path);
+        if(temp1->exec_cmd)
+            free_arry_of_chars(temp1->exec_cmd->cmd);
         temp2 = temp1;
         temp1 = temp1->next;
         free(temp2);

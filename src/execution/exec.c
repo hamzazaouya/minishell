@@ -94,7 +94,7 @@ void	execute(t_cmds *cmds)
 			}
 			else if(id == 0)
 			{
-				printf("here3\n");
+				//printf("here3\n");
 				if(cmds->in_redire > 2)
 					dup2(cmds->in_redire, 0);
 				else if(end_p != -1)

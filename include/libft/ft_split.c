@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hazaouya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: labenall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 09:14:27 by hazaouya          #+#    #+#             */
 /*   Updated: 2021/11/21 13:48:53 by hazaouya         ###   ########.fr       */
@@ -70,7 +70,6 @@ static int	*ft_size_word(const char *str, char c)
 
 static char	**ft_free(char **words, int *size, int j)
 {
-
 	while (--j >= 0)
 	{
 		free(words[j]);
@@ -94,7 +93,7 @@ char	**ft_split(char const *s, char c)
 	words = (char **)ft_calloc(ft_count_word(s, c), sizeof(char *));
 	if (!words || !s)
 	{
-		if(words)
+		if (words)
 			free(words);
 		return (NULL);
 	}

@@ -1,15 +1,23 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: labenall <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/11 18:58:06 by labenall          #+#    #+#             */
+/*   Updated: 2022/09/11 18:58:09 by labenall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//void	signal_handler(int signo);
+#ifndef SIGNAL_H
+# define SIGNAL_H
 
-//void	proc_signal_handler(int signo);
+# include "minishell.h"
 
 void	signals(void);
 void	sigquit_handler_in_process(int sig);
 void	sigint_handler_in_process(int sig);
-void	sigint_handler_2(int sig);
-//void	sigint_handler_nonl(int sig);
-//void	signals_handler(void);
-// void	signals_handler_child(void);
+void	signal_hander(int sig);
 
-//void		signal_handler_ctrl_c(int signal);
+#endif

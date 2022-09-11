@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: labenall <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/11 16:28:09 by labenall          #+#    #+#             */
+/*   Updated: 2022/09/11 16:28:13 by labenall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	ft_echo_n(char *src)
@@ -28,16 +40,6 @@ void	my_echo(char **src)
 
 	n = 0;
 	i = 1;
-
-	// int j = 0;
-	// printf("-----\n");
-	// while (src[j])
-	// {
-	// 	printf("%s\n",src[j]);
-	// 	j++;
-	// }
-	// printf("-----\n");
-	
 	while (ft_echo_n(src[i]))
 	{
 		n = 1;
@@ -56,9 +58,3 @@ void	my_echo(char **src)
 	if (n == 0)
 		printf("\n");
 }
-
-/*int main(int ac, char **av)
-{
-	my_echo(&av[1]);
-	return 0;
-}*/

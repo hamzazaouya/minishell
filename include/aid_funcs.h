@@ -9,5 +9,6 @@ void    free_arry_of_chars(char **str);
 char	*char_as_string(char c);
 int     ft_len_array(char **s);
 void    free_cmds_list(t_cmds **cmds);
+char      **strdup_arr(char **str);
 
 #endif

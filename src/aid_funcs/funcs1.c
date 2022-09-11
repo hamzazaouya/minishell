@@ -23,3 +23,21 @@ char	*char_as_string(char c)
 	str[1] = 0;
 	return (str);
 }
+
+char **strdup_arr(char **str)
+{
+	char **arr;
+	int len;
+	int i;
+
+	i = 0;
+	len = ft_len_array(str);
+	arr = (char **) malloc(sizeof(char*) * (len + 1));
+	while(i < len)
+	{
+		arr[i] = ft_strdup(str[i]);
+		i++;
+	}
+	arr[i] = 0;
+	return (arr);
+}

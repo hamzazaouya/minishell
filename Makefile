@@ -15,7 +15,8 @@ SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c 
 			execution/exec.c
 SRC_PATH = src
 OBJ_PATH  = obj
-LIB = include/libft.a
+LIB_PATH = include/libft
+LIB = $(LIB_PATH)/libft.a
 READLINE_DIR = ~/goinfre/.brew/opt/readline/
 .PHONY:	all clean fclean re bonus
 
@@ -29,7 +30,10 @@ OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
 all : $(OBJ_PATH) $(NAME)
 	@echo "$(BLUE)\n        :::   :::   ::::::::::: ::::    ::: ::::::::::: ::::::::  :::    ::: :::::::::: :::        :::  \n      :+:+: :+:+:      :+:     :+:+:   :+:     :+:    :+:    :+: :+:    :+: :+:        :+:        :+:   \n    +:+ +:+:+ +:+     +:+     :+:+:+  +:+     +:+    +:+        +:+    +:+ +:+        +:+        +:+    \n   +#+  +:+  +#+     +#+     +#+ +:+ +#+     +#+    +#++:++#++ +#++:++#++ +#++:++#   +#+        +#+     \n  +#+       +#+     +#+     +#+  +#+#+#     +#+           +#+ +#+    +#+ +#+        +#+        +#+      \n #+#       #+#     #+#     #+#   #+#+#     #+#    #+#    #+# #+#    #+# #+#        #+#        #+#       \n###       ### ########### ###    #### ########### ########  ###    ### ########## ########## ##########$(WHITE)\n\n\t\t$(RED)By$(WHITE):\n\t\t\t$(GREEN)Larbi Benalla $(WHITE)($(RED)Lmzoudi$(WHITE)) : $(BLUE)https://github.com/lbenalla $(WHITE)\n\t\t\t$(GREEN)Hamza Zaouya\t\t$(WHITE): $(BLUE)https://github.com/hamzazaouya$(WHITE)\n"
 
-$(NAME) : $(OBJS) 
+$(LIB):
+	@cd $(LIB_PATH) && make && make clean
+
+$(NAME) : $(OBJS) $(LIB)
 	$(CC) $(SIG) -lreadline -I $(READLINE_DIR)include -L $(READLINE_DIR)lib $(LIB) $(OBJS) -o  $(NAME)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c include/$(HEADER)
@@ -50,6 +54,7 @@ clean:
 	rm -fr $(OBJ_PATH)
 
 fclean: clean
+	@cd $(LIB_PATH) && make fclean
 	rm -f $(NAME)
 	rm -fr $(OBJ_PATH)
 re : fclean all

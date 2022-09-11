@@ -25,7 +25,7 @@
 # include <curses.h>
 # include <errno.h>
 # include <string.h>
-#include "libft.h"
+#include "libft/libft.h"
 #define GRN   "\x1B[32m"
 #define RESET "\x1B[0m"
 

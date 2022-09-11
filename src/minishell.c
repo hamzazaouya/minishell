@@ -89,6 +89,7 @@ int main(int argc, char ** argv, char **env)
         //line = readline(prompt);
         if(!line)
         {
+            printf("line = %s\n", line);
             //printf(GRN "\nMinishell $: " RESET);
             //printf("exit\n");
             exit(0);
@@ -100,14 +101,14 @@ int main(int argc, char ** argv, char **env)
             add_history(line);
         lexer = init_lexer(env, line);
         cmds_list = parce_list_shell(lexer);
-        
         //preter_final_list(cmds_list);
         if(cmds_list)
         {
             execute(cmds_list);
             free_cmds_list(&cmds_list);
-            // system("leaks minishell");
         }
+        free(lexer->contents);
+        free(lexer);
         //printf("after exec\n");
         //}
         //preter(cmds_list);
@@ -116,7 +117,6 @@ int main(int argc, char ** argv, char **env)
         //     printf("-->>value = %s, type = %d, \n", token_list->value, token_list->type);
         //     token_list = token_list->next;
         // }
-        free(line);
         //parce_free_cmd_shell(cmds_list);
         // data->exit_code = 0;
     }

@@ -55,10 +55,13 @@ char    *parce_get_cmd_path(t_cmd *cmd_list)
     char *path;
 
     check = ft_strchr(cmd_list->cmd[0], '/');
+
     if(check)
         path = parce_get_cmd_with_path(cmd_list->cmd[0]);
     else
+    {
         path = parce_cmd_without_path(cmd_list);
+    }
     return (path);
 }
 
@@ -88,12 +91,14 @@ t_exec_cmd *parce_cmd_exec_init(t_cmd *cmd_list)
     if(!cmd_list->cmd)
         return (NULL);
     cmd_exec = (t_exec_cmd *) malloc(sizeof(t_exec_cmd));
-    cmd_exec->cmd = cmd_list->cmd;
+    cmd_exec->cmd = strdup_arr(cmd_list->cmd);
     cmd_exec->type = parce_check_cmd_type(cmd_list->cmd[0]);
     if(cmd_exec->type != -1)
         cmd_exec->path = NULL;
     else
+    {
         cmd_exec->path = parce_get_cmd_path(cmd_list);
+    }
     return (cmd_exec);
 }
 
@@ -177,7 +182,9 @@ t_cmds  *parce_get_cmds(t_cmd *cmd_list)
 {
     t_cmds  *cmds_list;
     t_cmds  *cmds;
+    t_cmd   *tmp;
 
+    tmp = cmd_list;
     cmds_list = NULL;
     while(cmd_list)
     {

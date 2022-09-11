@@ -26,7 +26,9 @@ void    free_arry_of_chars(char **str)
         // printf("-->before free str\n");
         // free(str);
         // printf("-->after free str\n");
+        free(str);
     }
+
 }
 
 void    free_cmds_list(t_cmds **cmds)
@@ -41,6 +43,8 @@ void    free_cmds_list(t_cmds **cmds)
         if(temp1->exec_cmd)
         {
             free_arry_of_chars(temp1->exec_cmd->cmd);
+            if(temp1->exec_cmd->path)
+                free(temp1->exec_cmd->path);
             free(temp1->exec_cmd);
         }
         temp2 = temp1;

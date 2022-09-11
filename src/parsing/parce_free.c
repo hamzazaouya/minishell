@@ -22,6 +22,8 @@ void	free_cmd_redire(t_redire *redire)
     while(temp1)
     {
         temp2 = temp1;
+		if(temp1->value)
+			free(temp1->value);
         temp1 = temp1->next;
         free(temp2);
     }

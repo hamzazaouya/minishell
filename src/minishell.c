@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+// #include "../include/minishell.h"
 #include "../include/lexer.h"
 #include "../include/parce.h"
 
@@ -105,8 +105,10 @@ int main(int argc, char ** argv, char **env)
         if(cmds_list)
         {
             execute(cmds_list);
+            // printf("before\n");
             free_cmds_list(&cmds_list);
-            system("leaks minishell");
+            // printf("after");
+            // system("leaks minishell");
         }
         //printf("after exec\n");
         //}
@@ -121,4 +123,6 @@ int main(int argc, char ** argv, char **env)
         // data->exit_code = 0;
     }
     //free
+    ft_free_env(data->env);
+    free_env(&data->list_env);
 }

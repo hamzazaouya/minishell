@@ -8,6 +8,14 @@ typedef struct s_env
     struct s_env *next;
 }               t_env;
 
+typedef struct	s_lexer
+{
+	char			c;
+	unsigned int	i;
+	char			*contents;
+	char			**env;
+}	t_lexer;
+
 typedef struct token_struct
 {
     enum

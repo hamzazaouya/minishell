@@ -154,11 +154,13 @@ int	my_cd(char **str_array, t_env **env)
 		printf("%s \n",str_array[i]);
 		i++;
 	}*/
+	// printf("here0\n");
 	if (str_array[1] == NULL)
 	{	
 		str_array[1] = get_content_from_env(*env, "HOME");
 		str_array[2] = NULL;
 	}
+	// printf("here1\n");
 
 	/*i = 0;
 	while(str_array[i])
@@ -168,7 +170,9 @@ int	my_cd(char **str_array, t_env **env)
 	}*/
 	if (ft_check_error(str_array))
 		return (1);
+	// printf("here2\n");
 	ft_do_cd(str_array, env);
+	// printf("here3\n");
 	//printf("cheak free\n");
 	return (0);
 }

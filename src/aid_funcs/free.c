@@ -33,6 +33,7 @@ void    free_cmds_list(t_cmds **cmds)
     {
         free_arry_of_chars(temp1->exec_cmd->cmd);
         free(temp1->exec_cmd->path);
+        free(temp1->exec_cmd);
         temp2 = temp1;
         temp1 = temp1->next;
         free(temp2);

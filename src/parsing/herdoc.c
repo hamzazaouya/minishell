@@ -11,10 +11,11 @@ void	parce_read_herdoc(t_redire *redire)
 	while (1)
 	{
 		line = readline("> ");
+		//signal(SIGINT, sigint_handler_2);
+		//signals();
 		if(!line)
 			break;
 		//Signal ctrl-
-		
 		check = ft_strcmp(line, redire->value);
 		if (check)
         {

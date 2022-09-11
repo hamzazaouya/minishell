@@ -105,9 +105,9 @@ int main(int argc, char ** argv, char **env)
         if(cmds_list)
         {
             execute(cmds_list);
-            // printf("before\n");
+             //printf("before\n");
             free_cmds_list(&cmds_list);
-            // printf("after");
+             //printf("after");
             // system("leaks minishell");
         }
         //printf("after exec\n");

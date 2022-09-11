@@ -16,9 +16,16 @@ void    free_arry_of_chars(char **str)
     i = 0;
     if (str != NULL)
     {
+        // printf("it NULL\n");
         while(str[i])
-            free(str[i++]);
-        free(str);
+        {
+            // printf("__before free str[i]\n");
+             free(str[i++]);
+            // printf("__after free str[i]\n");
+        }
+        // printf("-->before free str\n");
+        // free(str);
+        // printf("-->after free str\n");
     }
 }
 
@@ -31,11 +38,15 @@ void    free_cmds_list(t_cmds **cmds)
     temp2 = temp1;
     while(temp1)
     {
+        // printf("-1\n");
         free_arry_of_chars(temp1->exec_cmd->cmd);
+        // printf("0\n");
         free(temp1->exec_cmd->path);
+        // printf("1\n");
         free(temp1->exec_cmd);
         temp2 = temp1;
         temp1 = temp1->next;
+        // printf("2\n");
         free(temp2);
     }
 }

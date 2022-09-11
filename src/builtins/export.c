@@ -171,7 +171,7 @@ int size_of_list(t_env *env)
 char **update_env(t_env **env)
 {
     t_env *h_env;
-
+    char *tmp1;
     h_env = *env;
     int len_env = size_of_list(h_env);
     // printf("len %d\n",len_env);
@@ -183,9 +183,14 @@ char **update_env(t_env **env)
     while(h_env)
     {
         // printf("1\n");
+        
         r[i] = ft_strjoin("", h_env->type);
+        tmp1 = r[i];
         r[i] = ft_strjoin(r[i], "=");
+        free(tmp1);
+        tmp1 = r[i];
         r[i] = ft_strjoin(r[i], h_env->content);
+        free(tmp1);
         h_env = h_env->next;
         i++;
     }
@@ -196,7 +201,20 @@ char **update_env(t_env **env)
     //  printf("after free\n");
     return (r);
 }
+void ft_free_env(char **holder)
+{
+    int i;
 
+    i = 0;
+    if (holder != NULL)
+    {
+        if (holder[i] != NULL)
+            free(holder[i]);
+        i++;
+        free(holder);
+    }
+
+}
 int my_export(char **arg, t_env **env)
 {
     char *type = NULL;
@@ -251,7 +269,9 @@ int my_export(char **arg, t_env **env)
 
     }
     // printf("before update\n");
+    char **holder = data->env;
     data->env= update_env(env);
+    ft_free_env(holder);
     // printf("after update\n");
     //my_env(env);
     //printf("-------------------------->\n");

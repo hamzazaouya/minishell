@@ -7,6 +7,7 @@
 
 void init_env(t_env **list_env,char **env);
 char  **update_env(t_env **env);
+void ft_free_env(char **holder);
 char *get_content_from_env(t_env *list_env, char *type);
 void    free_env(t_env **list_env);
 char *get_content(char *content);

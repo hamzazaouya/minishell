@@ -99,8 +99,8 @@ static void	ft_do_cd(char **str_array, t_env **env)
 		//printf("in fuction \n");
 		ft_update_pwd(env, old_pwd);
 		//ft_update_pwd(env)
+		free(old_pwd);
 	}
-	free(old_pwd);
 }
 
 static char	*ft_make_err(char **str_array, struct stat **buf)
@@ -154,21 +154,27 @@ int	my_cd(char **str_array, t_env **env)
 		printf("%s \n",str_array[i]);
 		i++;
 	}*/
+	// printf("here0\n");
+	char **my_array;
 	if (str_array[1] == NULL)
 	{	
-		str_array[1] = get_content_from_env(*env, "HOME");
-		str_array[2] = NULL;
+		my_array = malloc(sizeof(char *) * 3);
+		my_array[0] = ft_strdup("cd");
+		my_array[1] = ft_strdup(get_content_from_env(*env, "HOME"));
+		my_array[2] = NULL;
+		ft_do_cd(my_array, env);
+		// printf("I am here 0\n");
+		free_arry_of_chars(my_array);
+		// printf("I am here 1\n");
 	}
-
-	/*i = 0;
-	while(str_array[i])
+	else
 	{
-		printf("%s \n",str_array[i]);
-		i++;
-	}*/
-	if (ft_check_error(str_array))
-		return (1);
-	ft_do_cd(str_array, env);
+		if (ft_check_error(str_array))
+			return (1);
+		ft_do_cd(str_array, env);
+	}
+	// printf("here2\n");
+	// printf("here3\n");
 	//printf("cheak free\n");
 	return (0);
 }

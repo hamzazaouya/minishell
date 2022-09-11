@@ -3,13 +3,7 @@
 #include "token.h"
 #include "minishell.h"
 
-typedef struct	s_lexer
-{
-	char			c;
-	unsigned int	i;
-	char			*contents;
-	char			**env;
-}	t_lexer;
+
 
 t_lexer*	init_lexer(char **env, char *contents);
 void		lexer_advance(t_lexer *lexer);

@@ -113,7 +113,6 @@ void	execute(t_cmds *cmds)
 					exit(exec_builtins(cmds, 0));
 				else
 				{
-					
 					execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
 				}
 			}

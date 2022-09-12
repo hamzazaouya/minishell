@@ -65,7 +65,8 @@ char	*parce_cmd_without_path(t_cmd *cmd_list)
 	path = parce_get_path(cmd_list, paths);
 	if (!path)
 	{
-		write(2, "command not found\n", ft_strlen("command not found\n"));
+		ft_putstr_fd(cmd_list->cmd[0], 2);
+		ft_putstr_fd(" : command not found\n", 2);
 		cmd_list->type = 127;
 	}
 	free_arry_of_chars(paths);

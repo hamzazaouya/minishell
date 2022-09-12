@@ -49,7 +49,6 @@ void	exec_wait(t_cmds *cmds, int	len)
 	while(i < len)
 	{
 		wait(&status);
-		//signals_handler();
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		if (status == 2)
@@ -69,21 +68,18 @@ void	execute(t_cmds *cmds)
 	int	id;
 	int	len;
 	sig_t old_signal[2];
-	//printf("here0\n");
 	t_cmds *tmp;
 	tmp = cmds;
 	len = exec_cmd_len(cmds);
 	end_p = -1;
 	while(cmds)
 	{
-		//printf("here1\n");
 		if(cmds->next)
 			pipe(p);
 		if (len == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)
 			cmds->type = exec_builtins(cmds, 1);
 		else if(!cmds->type)
 		{
-			//printf("here2\n");
 			old_signal[0] = signal(SIGINT, sigint_handler_in_process);
 			old_signal[1] = signal(SIGQUIT, sigquit_handler_in_process);
 			id = fork();
@@ -94,7 +90,6 @@ void	execute(t_cmds *cmds)
 			}
 			else if(id == 0)
 			{
-				//printf("here3\n");
 				if(cmds->in_redire > 2)
 					dup2(cmds->in_redire, 0);
 				else if(end_p != -1)
@@ -118,7 +113,6 @@ void	execute(t_cmds *cmds)
 			}
 			else
 			{
-				//printf("here4\n");
 				data->signal = 0;
 				if(end_p != -1)
 					close(end_p);
@@ -134,7 +128,6 @@ void	execute(t_cmds *cmds)
 		cmds = cmds->next;
 	}
 	exec_wait(tmp, len);
-	//printf("here5\n");
 	signal(SIGINT, old_signal[0]);
 	signal(SIGQUIT, old_signal[1]);
 }

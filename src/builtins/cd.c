@@ -1,41 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: labenall <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/11 16:27:59 by labenall          #+#    #+#             */
+/*   Updated: 2022/09/11 16:28:02 by labenall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
-
-
-
-/*char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	index;
-	char	*result;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	index = 0;
-	result = (char *)malloc((s1_len + s2_len) * sizeof(char) + 1);
-	if (!result)
-		return (NULL);
-	while (index < (s1_len + s2_len))
-	{
-		if (index < s1_len)
-			result[index] = s1[index];
-		else
-			result[index] = s2[index - s1_len];
-		index++;
-	}
-	result[index] = '\0';
-	return (result);
-}*/
-
-
-
 
 t_env	*ft_ch_value(t_env *ht, char *key, char *value)
 {
-	t_env *h;
-	char  *old_value;
+	t_env	*h;
+	char	*old_value;
+
 	h = ht;
-	while(h != NULL)
+	while (h != NULL)
 	{
 		if (ft_strncmp(h->type, key, ft_strlen(key)) == 0)
 		{
@@ -49,23 +32,8 @@ t_env	*ft_ch_value(t_env *ht, char *key, char *value)
 		old_value = NULL;
 		free(old_value);
 	}
-	//printf("in cheak value\n");
 	return (ht);
-	/*t_env	*element;
-	char		*value_holder;
-
-	element = ft_get_element(ht, key);
-	if (!element)
-		return (ht);
-	value_holder = element->content;
-	if (is_apnd)
-		element->content = ft_strjoin(element->content, value);
-	else
-		element->content = ft_strdup(value);
-	free(value_holder);
-	return (ht);*/
 }
-
 
 static void	ft_update_pwd(t_env **env, char *old_pwd)
 {
@@ -73,9 +41,7 @@ static void	ft_update_pwd(t_env **env, char *old_pwd)
 
 	pwd = NULL;
 	pwd = getcwd(pwd, BUFFER_SIZE);
-	//printf("-1>%s\n",pwd);
 	*env = ft_ch_value(*env, "PWD", pwd);
-	//printf("in update\n");
 	*env = ft_ch_value(*env, "OLDPWD", old_pwd);
 	if (pwd)
 		free(pwd);
@@ -84,9 +50,9 @@ static void	ft_update_pwd(t_env **env, char *old_pwd)
 static void	ft_do_cd(char **str_array, t_env **env)
 {
 	char	*old_pwd;
+
 	old_pwd = NULL;
 	old_pwd = getcwd(old_pwd, BUFFER_SIZE);
-	//printf("-->%s\n",str_array[1]);
 	if (chdir(str_array[1]) == -1)
 	{
 		if (old_pwd)
@@ -96,9 +62,7 @@ static void	ft_do_cd(char **str_array, t_env **env)
 	}
 	else
 	{
-		//printf("in fuction \n");
 		ft_update_pwd(env, old_pwd);
-		//ft_update_pwd(env)
 		free(old_pwd);
 	}
 }
@@ -108,7 +72,6 @@ static char	*ft_make_err(char **str_array, struct stat **buf)
 	char		*err_msg;
 
 	err_msg = NULL;
-	//printf("-->%s\n",str_array[1]);
 	if (!str_array[1])
 		err_msg = ft_strdup("please provide a relative or absolute path");
 	else if (ft_strlen(str_array[1]) > 255)
@@ -140,7 +103,6 @@ static int	ft_check_error(char **str_array)
 		ft_putstr_fd(err_msg, 2);
 		ft_putstr_fd("\n", 2);
 		free(err_msg);
-		//exit(1); //l3arbiiii matnsach
 		return (1);
 	}
 	return (0);
@@ -148,14 +110,8 @@ static int	ft_check_error(char **str_array)
 
 int	my_cd(char **str_array, t_env **env)
 {
-	/*int i = 0;
-	while(str_array[i])
-	{
-		printf("%s \n",str_array[i]);
-		i++;
-	}*/
-	// printf("here0\n");
 	char **my_array;
+
 	if (str_array[1] == NULL)
 	{	
 		my_array = malloc(sizeof(char *) * 3);
@@ -163,9 +119,7 @@ int	my_cd(char **str_array, t_env **env)
 		my_array[1] = ft_strdup(get_content_from_env(*env, "HOME"));
 		my_array[2] = NULL;
 		ft_do_cd(my_array, env);
-		// printf("I am here 0\n");
 		free_arry_of_chars(my_array);
-		// printf("I am here 1\n");
 	}
 	else
 	{
@@ -173,8 +127,5 @@ int	my_cd(char **str_array, t_env **env)
 			return (1);
 		ft_do_cd(str_array, env);
 	}
-	// printf("here2\n");
-	// printf("here3\n");
-	//printf("cheak free\n");
 	return (0);
 }

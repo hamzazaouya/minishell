@@ -1,31 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   herdoc.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: labenall <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/11 22:38:13 by labenall          #+#    #+#             */
+/*   Updated: 2022/09/11 22:38:14 by labenall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/parce.h"
 
 void	parce_read_herdoc(t_redire *redire)
 {
 	int		check;
 	char	*line;
-	int 	id;
+	int		id;
 
 	check = 0;
-	//signals();
-    pipe(redire->fd);
+	pipe(redire->fd);
 	id = fork();
-	if(id == -1)
+	if (id == -1)
 	{
 		printf("Error in fork\n");
 		return ;
 	}
-	else if(id == 0)
+	else if (id == 0)
 	{
 		close(redire->fd[0]);
 		while (1)
 		{
+			signal(SIGINT, SIG_DFL);
 			line = readline("> ");
-			//signal(SIGINT, sigint_handler_2);
-			//signals();
-			if(!line)
-				break;
-			//Signal ctrl-
+			if (!line)
+				break ;
 			check = ft_strcmp(line, redire->value);
 			if (check)
 			{
@@ -34,30 +43,27 @@ void	parce_read_herdoc(t_redire *redire)
 			}
 			else
 				break ;
-			free(line);
 		}
 		close(redire->fd[1]);
-		return ;
 	}
 	else
 	{
 		wait(NULL);
-		free(line);
 		close(redire->fd[1]);
 	}
 }
 
-void    parce_open_herdoc(t_cmd *cmds_list)
+void	parce_open_herdoc(t_cmd *cmds_list)
 {
 	t_redire	*redire;
-    char        c;
-    while(cmds_list)
+	char		c;
+
+	while (cmds_list)
 	{
 		redire = cmds_list->redire_list;
-		while(redire)
+		while (redire)
 		{
-			
-			if(redire->type == TOKEN_HERDOC)
+			if (redire->type == TOKEN_HERDOC)
 			{
 				printf("before red\n");
 				parce_read_herdoc(redire);

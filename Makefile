@@ -6,9 +6,9 @@ BLUE := \033[0;34m
 NAME = minishell
 #SIG  = `stty -echoctl`
 HEADER = minishell.h
-SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c  \
+SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c  lexer/lexer_aid_func.c \
 			aid_funcs/funcs1.c aid_funcs/free.c aid_funcs/error.c  aid_funcs/function_use_libft.c\
-			parsing/parce.c parsing/parce_free.c parsing/herdoc.c parsing/open_redire.c parsing/cmds.c \
+			parsing/parce.c parsing/parce_free.c parsing/herdoc.c parsing/open_redire.c parsing/cmds.c parsing/parce_redire.c\
 			builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \
 			builtins/pwd.c builtins/unset.c builtins/export.c \
 			env/initial_env.c signal/signal.c \

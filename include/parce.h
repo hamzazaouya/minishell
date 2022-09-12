@@ -15,4 +15,5 @@ void	parce_token_error(t_cmd *cmd , t_token *token);
 void    parce_open_herdoc(t_cmd *cmd_shell);
 void    parce_open_redire(t_cmd *cmd_shell);
 t_cmds  *parce_get_cmds(t_cmd *cmd_list);
+int	    parce_redire(t_cmd *cmd, t_token *token_next, int token_type);
 #endif

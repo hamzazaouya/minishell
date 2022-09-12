@@ -89,7 +89,7 @@ char	**ft_split(char const *s, char c)
 
 	j = 0;
 	i = -1;
-	if(!s || !ft_strlen(s))
+	if (!s || !ft_strlen(s))
 		return (NULL);
 	size = ft_size_word(s, c);
 	words = (char **)ft_calloc(ft_count_word(s, c), sizeof(char *));

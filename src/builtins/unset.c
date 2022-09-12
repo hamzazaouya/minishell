@@ -12,6 +12,13 @@
 
 #include "../../include/minishell.h"
 
+void	free_one_env(t_env *env)
+{
+	free(env->content);
+	free(env->type);
+	free(env);
+}
+
 void	delete(t_env **env, t_env *del)
 {
 	t_env	*head;
@@ -24,18 +31,14 @@ void	delete(t_env **env, t_env *del)
 		{
 			if (head == *env)
 			{
-				free(head->type);
-				free(head->content);
-				free(head);
+				free_one_env(head);
 				*env = (*env)->next;
 				break ;
 			}
 			else
 			{
 				last->next = head->next;
-				free(head->type);
-				free(head->content);
-				free(head);
+				free_one_env(head);
 				break ;
 			}
 		}

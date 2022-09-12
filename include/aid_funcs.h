@@ -15,13 +15,16 @@
 
 # include "struct.h"
 
-void	free_token(t_token **token);
-void	*single_double_qoute_err(char *value);
-void	free_arry_of_chars(char **str);
-char	*char_as_string(char c);
-int		ft_len_array(char **s);
-void	free_cmds_list(t_cmds **cmds);
-char	**strdup_arr(char **str);
-char	*get_char_as_string(char c);
+void		free_token(t_token **token);
+void		*single_double_qoute_err(char *value);
+void		free_arry_of_chars(char **str);
+char		*char_as_string(char c);
+int			ft_len_array(char **s);
+void		free_cmds_list(t_cmds **cmds);
+char		**strdup_arr(char **str);
+char		*get_char_as_string(char c);
+int			ft_count_len(unsigned int nbr);
+void		ft_itoa_writer(char *result, int nbr_len, unsigned int nbr);
+int			ft_atoi_pro(char *str, int *r);
 
 #endif

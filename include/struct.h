@@ -54,25 +54,25 @@ typedef struct s_redire
 typedef struct s_cmd
 {
 	int				type;
-    char			**cmd;
+	char			**cmd;
 	t_redire		*redire_list;
-    struct s_cmd	*next;
+	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct s_exec_cmd
 {
 	int		type;
-    char	**cmd;
-    char	*path;
+	char	**cmd;
+	char	*path;
 }				t_exec_cmd;
 
-typedef	struct s_cmds
+typedef struct s_cmds
 {
 	int				type;
 	int				in_redire;
 	int				out_redire;
 	t_exec_cmd		*exec_cmd;
-	struct  s_cmds	*next;
+	struct s_cmds	*next;
 }				t_cmds;
 
 typedef struct s_data

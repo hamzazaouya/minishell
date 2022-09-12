@@ -6,7 +6,7 @@
 /*   By: hazaouya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 07:54:29 by hazaouya          #+#    #+#             */
-/*   Updated: 2022/09/12 08:00:10 by hazaouya         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:08:36 by hazaouya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*lexer_collect_single_quote(t_lexer *lexer)
 	}
 	if (!lexer->c)
 		return (single_double_qoute_err(value));
-	if(!ft_strlen(value))
+	if (!ft_strlen(value))
 	{
 		free(value);
 		value = get_char_as_string(1);
@@ -64,7 +64,7 @@ char	*lexer_collect_double_quote(t_lexer *lexer)
 	if (!lexer->c)
 		return (single_double_qoute_err(value));
 	lexer_advance(lexer);
-	if(!ft_strlen(value))
+	if (!ft_strlen(value))
 	{
 		free(value);
 		value = get_char_as_string(1);
@@ -103,9 +103,9 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 			s = lexer_collect_expand(lexer);
 		else
 			s = lexer_collect_word(lexer);
-		if(!s)
+		if (!s)
 		{
-			if(value)
+			if (value)
 				free(value);
 			return (NULL);
 		}

@@ -12,13 +12,36 @@
 
 #include "../../include/parce.h"
 
-void	parce_read_herdoc(t_redire *redire)
+int	parce_child_hedoc(t_redire *redire)
 {
 	int		check;
 	char	*line;
-	int		id;
 
 	check = 0;
+	close(redire->fd[0]);
+	while (1)
+	{
+		signal(SIGINT, SIG_DFL);
+		line = readline("> ");
+		if (!line)
+			break ;
+		check = ft_strcmp(line, redire->value);
+		if (check)
+		{
+			write(redire->fd[1], line, ft_strlen(line));
+			write(redire->fd[1], "\n", 1);
+		}
+		else
+			break ;
+	}
+	close(redire->fd[1]);
+	exit(0);
+}
+
+void	parce_read_herdoc(t_redire *redire)
+{
+	int		id;
+
 	pipe(redire->fd);
 	id = fork();
 	if (id == -1)
@@ -27,26 +50,7 @@ void	parce_read_herdoc(t_redire *redire)
 		return ;
 	}
 	else if (id == 0)
-	{
-		close(redire->fd[0]);
-		while (1)
-		{
-			signal(SIGINT, SIG_DFL);
-			line = readline("> ");
-			if (!line)
-				break ;
-			check = ft_strcmp(line, redire->value);
-			if (check)
-			{
-				write(redire->fd[1], line, ft_strlen(line));
-				write(redire->fd[1], "\n", 1);
-			}
-			else
-				break ;
-		}
-		close(redire->fd[1]);
-		exit(0);
-	}
+		parce_child_hedoc(redire);
 	else
 	{
 		wait(NULL);

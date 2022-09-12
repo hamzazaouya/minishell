@@ -12,19 +12,6 @@
 
 #include "../../include/parce.h"
 
-void	free_cmd_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
-}
-
 void	free_cmd_redire(t_redire *redire)
 {
 	t_redire	*temp1;
@@ -46,7 +33,7 @@ t_cmd	*parce_free_cmd(t_cmd *cmd, t_token *token, char *value)
 	if (cmd->redire_list)
 		free_cmd_redire(cmd->redire_list);
 	if (cmd->cmd)
-		free_cmd_args(cmd->cmd);
+		free_arry_of_chars(cmd->cmd);
 	if (value)
 		free(value);
 	if (cmd)

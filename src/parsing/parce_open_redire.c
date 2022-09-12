@@ -6,21 +6,24 @@
 /*   By: labenall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 22:33:35 by labenall          #+#    #+#             */
-/*   Updated: 2022/09/11 22:33:37 by labenall         ###   ########.fr       */
+/*   Updated: 2022/09/12 18:34:27 by hazaouya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	parce_ambiguous_error(void)
+{
+	write(2, "ambiguous redirect\n", ft_strlen("ambiguous redirect\n"));
+	return (1);
+}
 
 int	parce_open_files(t_redire *redire)
 {
 	while (redire)
 	{
 		if (!redire->value)
-		{
-			write(2, "ambiguous redirect\n", ft_strlen("ambiguous redirect\n"));
-			return (1);
-		}
+			return (parce_ambiguous_error());
 		if (redire->type == TOKEN_INF)
 			redire->fd[0] = open(redire->value, O_RDONLY, 0644);
 		else if (redire->type == TOKEN_OUTF)

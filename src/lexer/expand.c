@@ -6,7 +6,7 @@
 /*   By: hazaouya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 08:00:25 by hazaouya          #+#    #+#             */
-/*   Updated: 2022/09/12 08:04:44 by hazaouya         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:07:25 by hazaouya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*lexer_collect_expand(t_lexer *lexer)
 		return (ft_itoa(data->exit_code));
 	}
 	var_name = lexer_get_var_name(lexer);
-	if(!var_name)
+	if (!var_name)
 	{
 		var_name = (char *) malloc(sizeof(char) * 2);
 		var_name[0] = '$';

@@ -6,21 +6,11 @@
 /*   By: hazaouya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 08:26:41 by hazaouya          #+#    #+#             */
-/*   Updated: 2022/09/12 08:34:33 by hazaouya         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:17:40 by hazaouya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-char	*get_char_as_string(char c)
-{
-	char *str;
-
-	str = (char *) malloc(sizeof(char) * 2);
-	str[0] = c;
-	str[1] = 0;
-	return (str);
-}
 
 void	parce_cmd_add_back(t_cmd **cmd_list, t_cmd *cmd)
 {
@@ -35,18 +25,6 @@ void	parce_cmd_add_back(t_cmd **cmd_list, t_cmd *cmd)
 	}
 	else
 		*cmd_list = cmd;
-}
-
-t_cmd	*ft_init_cmd(void)
-{
-	t_cmd	*cmd;
-
-	cmd = (t_cmd *) malloc(sizeof(t_cmd));
-	cmd->type = 0;
-	cmd->cmd = NULL;
-	cmd->redire_list = NULL;
-	cmd->next = NULL;
-	return (cmd);
 }
 
 char	*parce_word(t_token *token, char *cmd_value)
@@ -75,7 +53,7 @@ char	*parce_word(t_token *token, char *cmd_value)
 
 void	*parce_free_cmd_value(char *cmd_value)
 {
-	if(cmd_value)
+	if (cmd_value)
 		free(cmd_value);
 	return (NULL);
 }
@@ -83,7 +61,7 @@ void	*parce_free_cmd_value(char *cmd_value)
 t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, \
 		t_token *token, char *cmd_value)
 {
-	if(!token)
+	if (!token)
 		return (NULL);
 	if (token->type == TOKEN_PIPE)
 		return (parce_token_pipe_error(cmd, token, 1));
@@ -96,7 +74,7 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, \
 				return (NULL);
 		free_token(&token);
 		token = lexer_get_next_token(lexer);
-		if(!token)
+		if (!token)
 			return (parce_free_cmd_value(cmd_value));
 	}
 	if (!lexer->c && token->type == TOKEN_PIPE)

@@ -62,7 +62,7 @@ char	*parce_cmd_without_path(t_cmd *cmd_list)
 	}
 	paths = ft_split(path, ':');
 	free(path);
-	parce_get_path(cmd_list, paths);
+	path = parce_get_path(cmd_list, paths);
 	if (!path)
 	{
 		write(2, "command not found\n", ft_strlen("command not found\n"));
@@ -81,9 +81,7 @@ char	*parce_get_cmd_path(t_cmd *cmd_list)
 	if (check)
 		path = parce_get_cmd_with_path(cmd_list->cmd[0]);
 	else
-	{
 		path = parce_cmd_without_path(cmd_list);
-	}
 	return (path);
 }
 

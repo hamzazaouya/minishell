@@ -14,7 +14,7 @@
 
 int	is_string_sep(char c)
 {
-	if (c == '>' || c == '<' || c == '|' || c == ' ')
+	if (c == '>' || c == '<' || c == '|' || c == ' ' ||  c == '\t')
 		return (0);
 	return (1);
 }

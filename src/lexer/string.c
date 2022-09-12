@@ -34,6 +34,11 @@ char	*lexer_collect_single_quote(t_lexer *lexer)
 	}
 	if (!lexer->c)
 		return (single_double_qoute_err(value));
+	if(!ft_strlen(value))
+	{
+		free(value);
+		value = get_char_as_string(1);
+	}
 	lexer_advance(lexer);
 	return (value);
 }
@@ -59,6 +64,11 @@ char	*lexer_collect_double_quote(t_lexer *lexer)
 	if (!lexer->c)
 		return (single_double_qoute_err(value));
 	lexer_advance(lexer);
+	if(!ft_strlen(value))
+	{
+		free(value);
+		value = get_char_as_string(1);
+	}
 	return (value);
 }
 

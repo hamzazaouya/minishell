@@ -12,6 +12,16 @@
 
 #include "../../include/minishell.h"
 
+char	*get_char_as_string(char c)
+{
+	char *str;
+
+	str = (char *) malloc(sizeof(char) * 2);
+	str[0] = c;
+	str[1] = 0;
+	return (str);
+}
+
 void	parce_cmd_add_back(t_cmd **cmd_list, t_cmd *cmd)
 {
 	t_cmd	*temp;
@@ -45,24 +55,12 @@ char	*parce_word(t_token *token, char *cmd_value)
 	char	*sep1;
 	char	*cmd1;
 	char	*cmd2;
-		
-	
+
 	if (!cmd_value)
 		cmd_value = (char *) ft_calloc(1, sizeof(char));
-	sep = (char *) malloc(sizeof(char) * 2);
-	sep[0] = 127;
-	sep[1] = 0;
-	if (!ft_strlen(token->value) /*&& !ft_strlen(cmd_value)*/)
-	{
+	sep = get_char_as_string(127);
+	if (!ft_strlen(token->value))
 		return (cmd_value);
-		// printf("hello\n");
-		// sep1 = (char *) malloc(sizeof(char) * 2);
-		// sep1[0] = ' ';
-		// sep1[1] = 0;
-		// cmd1 = ft_strjoin(cmd_value, sep1);
-		// cmd2 = ft_strjoin(cmd1, sep);
-		// free(sep1);
-	}
 	else
 	{
 		cmd1 = ft_strjoin(cmd_value, token->value);
@@ -73,6 +71,13 @@ char	*parce_word(t_token *token, char *cmd_value)
 	if (cmd_value)
 		free(cmd_value);
 	return (cmd2);
+}
+
+void	*parce_free_cmd_value(char *cmd_value)
+{
+	if(cmd_value)
+		free(cmd_value);
+	return (NULL);
 }
 
 t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, \
@@ -92,19 +97,14 @@ t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, \
 		free_token(&token);
 		token = lexer_get_next_token(lexer);
 		if(!token)
-		{
-			if(cmd_value)
-				free(cmd_value);
-			return (NULL);
-		}
+			return (parce_free_cmd_value(cmd_value));
 	}
 	if (!lexer->c && token->type == TOKEN_PIPE)
 		return (parce_token_pipe_error(cmd, token, 0));
 	if (token->type == TOKEN_END && !cmd_value && !cmd->redire_list)
 		return (parce_free_cmd(cmd, token, cmd_value));
 	cmd->cmd = ft_split(cmd_value, 127);
-	if (cmd_value)
-		free(cmd_value);
+	parce_free_cmd_value(cmd_value);
 	free_token(&token);
 	return (cmd);
 }

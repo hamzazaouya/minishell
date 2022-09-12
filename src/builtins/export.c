@@ -83,8 +83,8 @@ char	*get_type_pro(char *s, int *k)
 		return (NULL);
 	while (s[i])
 	{
-		if ((s[0] >= '0' & s[0] <= '9') || \
-		s[i] == '-' || (s[i] == '+' && s[i + 1] != '='))
+		if ((s[0] >= '0' & s[0] <= '9') || s[i] == '-'
+			|| (s[i] == '+' && s[i + 1] != '='))
 		{
 			printf("export: `%s': not a valid identifier\n", s);
 			return (NULL);

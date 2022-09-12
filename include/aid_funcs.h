@@ -22,5 +22,6 @@ char	*char_as_string(char c);
 int		ft_len_array(char **s);
 void	free_cmds_list(t_cmds **cmds);
 char	**strdup_arr(char **str);
+char	*get_char_as_string(char c);
 
 #endif

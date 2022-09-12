@@ -69,6 +69,7 @@ void	execute(t_cmds *cmds)
 	int	len;
 	sig_t old_signal[2];
 	t_cmds *tmp;
+
 	tmp = cmds;
 	len = exec_cmd_len(cmds);
 	end_p = -1;
@@ -107,9 +108,7 @@ void	execute(t_cmds *cmds)
 				if(cmds->exec_cmd->type != -1)
 					exit(exec_builtins(cmds, 0));
 				else
-				{
 					execve(cmds->exec_cmd->path, cmds->exec_cmd->cmd, data->env);
-				}
 			}
 			else
 			{

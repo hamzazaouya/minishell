@@ -45,59 +45,58 @@ char	*parce_word(t_token *token, char *cmd_value)
 	char	*sep1;
 	char	*cmd1;
 	char	*cmd2;
-
-	if (!token->value && !cmd_value)
-		return (NULL);
-	else if (!token->value && data->exit_code == 256)
+		
+	
+	if (!cmd_value)
+		cmd_value = (char *) ft_calloc(1, sizeof(char));
+	sep = (char *) malloc(sizeof(char) * 2);
+	sep[0] = 127;
+	sep[1] = 0;
+	if (!ft_strlen(token->value) /*&& !ft_strlen(cmd_value)*/)
+	{
 		return (cmd_value);
+		// printf("hello\n");
+		// sep1 = (char *) malloc(sizeof(char) * 2);
+		// sep1[0] = ' ';
+		// sep1[1] = 0;
+		// cmd1 = ft_strjoin(cmd_value, sep1);
+		// cmd2 = ft_strjoin(cmd1, sep);
+		// free(sep1);
+	}
 	else
 	{
-		if (!cmd_value)
-			cmd_value = (char *) ft_calloc(1, sizeof(char));
-		sep = (char *) malloc(sizeof(char) * 2);
-		sep[0] = 127;
-		sep[1] = 0;
-		if (!ft_strlen(token->value) && !ft_strlen(cmd_value))
-		{
-			sep1 = (char *) malloc(sizeof(char) * 2);
-			sep1[0] = ' ';
-			sep1[1] = 0;
-			cmd1 = ft_strjoin(cmd_value, sep1);
-			cmd2 = ft_strjoin(cmd1, sep);
-			free(sep1);
-		}
-		else
-		{
-			cmd1 = ft_strjoin(cmd_value, token->value);
-			cmd2 = ft_strjoin(cmd1, sep);
-		}
-		free(sep);
-		free(cmd1);
-		if (cmd_value)
-			free(cmd_value);
-		return (cmd2);
+		cmd1 = ft_strjoin(cmd_value, token->value);
+		cmd2 = ft_strjoin(cmd1, sep);
 	}
-	return (NULL);
+	free(sep);
+	free(cmd1);
+	if (cmd_value)
+		free(cmd_value);
+	return (cmd2);
 }
 
 t_cmd	*parce_cmd_shell(t_cmd *cmd, t_lexer *lexer, \
 		t_token *token, char *cmd_value)
 {
+	if(!token)
+		return (NULL);
 	if (token->type == TOKEN_PIPE)
 		return (parce_token_pipe_error(cmd, token, 1));
 	while (token->type != TOKEN_END && token->type != TOKEN_PIPE)
 	{
 		if (token->type == TOKEN_WORD)
-		{
 			cmd_value = parce_word(token, cmd_value);
-			if (!cmd_value)
-				return (parce_free_cmd(cmd, token, cmd_value));
-		}
 		else
 			if (!parce_redire(cmd, lexer_get_next_token(lexer), token->type))
 				return (NULL);
 		free_token(&token);
 		token = lexer_get_next_token(lexer);
+		if(!token)
+		{
+			if(cmd_value)
+				free(cmd_value);
+			return (NULL);
+		}
 	}
 	if (!lexer->c && token->type == TOKEN_PIPE)
 		return (parce_token_pipe_error(cmd, token, 0));

@@ -14,16 +14,16 @@
 
 char	*get_content_from_env(t_env *list_env, char *type)
 {
-	if (!type)
-		return (NULL);
-	while (list_env)
+	if(type)
 	{
-		if (!ft_strcmp(list_env->type, type))
-			return (ft_strdup(list_env->content));
-		list_env = list_env->next;
+		while (list_env)
+		{
+			if (!ft_strcmp(list_env->type, type))
+				return (ft_strdup(list_env->content));
+			list_env = list_env->next;
+		}
 	}
-	data->exit_code = 256;
-	return (NULL);
+	return (ft_calloc(1, sizeof(char)));
 }
 
 char	*get_type(char *type)

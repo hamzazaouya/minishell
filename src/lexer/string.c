@@ -93,6 +93,12 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 			s = lexer_collect_expand(lexer);
 		else
 			s = lexer_collect_word(lexer);
+		if(!s)
+		{
+			if(value)
+				free(value);
+			return (NULL);
+		}
 		value = ft_collect(value, s);
 	}
 	return (init_token(TOKEN_WORD, value));

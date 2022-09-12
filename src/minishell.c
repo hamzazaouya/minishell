@@ -34,7 +34,7 @@
 }
 */
 
-/*void preter_final_list(t_cmds *cmds_list)
+void preter_final_list(t_cmds *cmds_list)
 {
     int i;
 
@@ -54,7 +54,7 @@
         printf("\n--------------------------\n");
         cmds_list = cmds_list->next;
     }
-}*/
+}
 
 void	print_array_str(char **s)
 {
@@ -96,6 +96,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(line);
 		lexer = init_lexer(env, line);
 		cmds_list = parce_list_shell(lexer);
+		 //preter_final_list(cmds_list);
 		if (cmds_list)
 		{
 			execute(cmds_list);

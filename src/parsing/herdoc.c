@@ -45,6 +45,7 @@ void	parce_read_herdoc(t_redire *redire)
 				break ;
 		}
 		close(redire->fd[1]);
+		exit(0);
 	}
 	else
 	{
@@ -64,11 +65,7 @@ void	parce_open_herdoc(t_cmd *cmds_list)
 		while (redire)
 		{
 			if (redire->type == TOKEN_HERDOC)
-			{
-				printf("before red\n");
 				parce_read_herdoc(redire);
-				printf("after red\n");
-			}
 			redire = redire->next;
 		}
 		cmds_list = cmds_list->next;

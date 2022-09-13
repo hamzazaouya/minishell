@@ -7,10 +7,10 @@ NAME = minishell
 #SIG  = `stty -echoctl`
 HEADER = minishell.h
 SOURCES = minishell.c lexer/lexer.c lexer/token.c lexer/string.c lexer/expand.c  lexer/lexer_aid_func.c \
-			aid_funcs/funcs1.c aid_funcs/free.c aid_funcs/error.c  aid_funcs/function_use_libft.c\
+			aid_funcs/funcs1.c aid_funcs/free.c aid_funcs/funcs2.c   aid_funcs/funcs3.c \
 			parsing/parce.c parsing/parce_free.c parsing/parce_herdoc.c parsing/parce_open_redire.c parsing/parce_cmds.c parsing/parce_redire.c parsing/parce_aid.c parsing/parce_cmd_path.c\
-			builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \
-			builtins/pwd.c builtins/unset.c builtins/export.c \
+			builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/help_export_2.c \
+			builtins/pwd.c builtins/unset.c builtins/export.c builtins/atoi_pro.c builtins/help_export_1.c \
 			env/initial_env.c signal/signal.c \
 			execution/exec.c execution/exec_aid.c
 SRC_PATH = src

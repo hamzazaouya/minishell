@@ -35,19 +35,7 @@ t_env	*ft_ch_value(t_env *ht, char *key, char *value)
 	return (ht);
 }
 
-static void	ft_update_pwd(t_env **env, char *old_pwd)
-{
-	char	*pwd;
-
-	pwd = NULL;
-	pwd = getcwd(pwd, BUFFER_SIZE);
-	*env = ft_ch_value(*env, "PWD", pwd);
-	*env = ft_ch_value(*env, "OLDPWD", old_pwd);
-	if (pwd)
-		free(pwd);
-}
-
-static void	ft_do_cd(char **str_array, t_env **env)
+void	ft_do_cd(char **str_array, t_env **env)
 {
 	char	*old_pwd;
 
@@ -67,7 +55,7 @@ static void	ft_do_cd(char **str_array, t_env **env)
 	}
 }
 
-static char	*ft_make_err(char **str_array, struct stat **buf)
+char	*ft_make_err(char **str_array, struct stat **buf)
 {
 	char		*err_msg;
 
@@ -87,7 +75,7 @@ static char	*ft_make_err(char **str_array, struct stat **buf)
 	return (err_msg);
 }
 
-static int	ft_check_error(char **str_array)
+int	ft_check_error(char **str_array)
 {
 	struct stat	*buf;
 	char		*err_msg;
@@ -110,7 +98,7 @@ static int	ft_check_error(char **str_array)
 
 int	my_cd(char **str_array, t_env **env)
 {
-	char **my_array;
+	char	**my_array;
 
 	if (str_array[1] == NULL)
 	{	

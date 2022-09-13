@@ -53,3 +53,29 @@ char	**strdup_arr(char **str)
 	arr[i] = 0;
 	return (arr);
 }
+
+int	ft_len_array(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_str(char *type, size_t s)
+{
+	char	*r;
+	size_t	i;
+
+	i = 0;
+	r = malloc(s + 1);
+	while (i < s)
+	{
+		r[i] = type[i];
+		i++;
+	}
+	r[i] = 0;
+	return (r);
+}

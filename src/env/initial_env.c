@@ -14,7 +14,7 @@
 
 char	*get_content_from_env(t_env *list_env, char *type)
 {
-	if(type)
+	if (type)
 	{
 		while (list_env)
 		{

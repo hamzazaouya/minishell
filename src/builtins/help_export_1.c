@@ -79,7 +79,10 @@ int	cheak_arg(char **arg)
 			if ((j == 0 && (!ft_isalpha(arg[i][j]) && !(arg[i][j] == '_'))) \
 			|| (j != 0 && (!ft_isdigit(arg[i][j]) && !ft_isalpha(arg[i][j])) \
 			&& !(arg[i][j] == '+') && !(arg[i][j] == '_')))
+			{
+				printf("export: `%s': not a valid identifier\n", arg[i]);
 				return (1);
+			}
 			j++;
 		}
 		i++;

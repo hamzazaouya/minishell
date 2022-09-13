@@ -52,6 +52,7 @@ int	exec_with_break(t_cmds *cmds, int *p)
 	int		end_p;
 	int		id;
 
+	tmp = cmds;
 	if (cmds->next)
 		pipe(p);
 	if (exec_cmd_len(tmp) == 1 && cmds->exec_cmd && cmds->exec_cmd->type != -1)

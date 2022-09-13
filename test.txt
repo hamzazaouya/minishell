@@ -1,19 +1,19 @@
-\t                  ->token
+  \t                  ->token
                      -> nothing
 |                    -> syntax error near unexpected token '|'
-dfasdfsdf |         -> syntax error near unexpected token 'newline'
-> |                 -> syntax error near unexpected token '|'
->>                   -> syntax error near unexpected token 'newline'                       
-<<                     ->syntax error near unexpected token 'newline'
->                       -> syntax error near unexpected token 'newline'
-<                       -> syntax error near unexpected token 'newline'
->>>                     -> syntax error near unexpected token '>'
-<<<                     -> syntax error near unexpected token '<'
+dfasdfsdf |         -> syntax error near unexpected token 'newline' -->> leaks
+> |                 -> syntax error near unexpected token '|' -->> leaks
+>>                   -> syntax error near unexpected token 'newline' -->> leaks                   
+<<                     ->syntax error near unexpected token 'newline' -->> leaks
+>                       -> syntax error near unexpected token 'newline' -->> leaks
+<                       -> syntax error near unexpected token 'newline' -->>
+>>>                     -> syntax error near unexpected token '>' --> leaks
+<<<                     -> syntax error near unexpected token '<' --> leaks
 >>>>>>>>>>>>>>>>>>>     -> syntax error near unexpected token '>'
 <<<<<<<<<<<<<<<<<<       -> syntax error near unexpected token '<'
-echo $USER              ->  "echo", "hazaouya",
-$USER                   -> "hazaouya",
-echo $dfsdfsdfsdf -> "echo",
+echo $USER              ->  "echo", "hazaouya",                 --> leaks
+$USER                   -> "hazaouya",                          --> leaks
+echo $dfsdfsdfsdf -> "echo",                                    --> leaks
 >> $USER            -> type = 3, value = hazaouya
 << $USER            -> type = 1, value = hazaouya
 > $USER             -> type = 2, value = hazaouya

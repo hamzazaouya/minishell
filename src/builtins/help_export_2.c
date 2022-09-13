@@ -76,7 +76,10 @@ int	help_type_pro(char *s, int *k, size_t *i)
 	while (s[*i])
 	{
 		if ((s[0] >= '0' & s[0] <= '9') || s[*i] == '-'
-			|| (s[*i] == '+' && s[*i + 1] != '='))
+			|| (s[*i] == '+' && s[*i + 1] != '=')
+			|| (s[0] == '=' && s[1] == 0)
+			|| (s[0] == '=' && s[1] == '=')
+			|| (s[0] == '+' && s[1] == '='))
 		{
 			printf("export: `%s': not a valid identifier\n", s);
 			return (0);
@@ -87,7 +90,7 @@ int	help_type_pro(char *s, int *k, size_t *i)
 				*k = 1;
 			break ;
 		}
-		i++;
+		(*i)++;
 	}
 	return (1);
 }
